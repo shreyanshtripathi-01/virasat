@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load humanize static %}
+{% block title %}Handmade heritage{% endblock %}
+{% block body_class %}home-page{% endblock %}
+{% block content %}
+<div class="storefront">
+  <section class="store-hero" aria-labelledby="hero-title">
+    <div class="store-hero__copy">
+      <span class="store-stamp">A place for Indian handmade.</span>
+      <h1 id="hero-title">Made by hand.<br>Made to matter.</h1>
+      <p class="store-hero__lead">Work with a story. Makers with a name.<br>Explore Indian crafts, straight from the people who keep them alive.</p>
+      <form class="store-search" method="get" action="{% url 'catalog:product_list' %}" role="search">
+        <label class="visually-hidden" for="hero-search-input">Search handmade pieces</label>
+        <input id="hero-search-input" name="q" type="search" placeholder="Search the collection" autocomplete="off">
+        <button class="btn btn-brand" type="submit">Find a piece <i class="bi bi-arrow-up-right" aria-hidden="true"></i></button>
+      </form>
+      <a class="store-explore" href="#crafts-heading">Explore craft traditions <i class="bi bi-arrow-down-right" aria-hidden="true"></i></a>
+      <div class="store-figures" aria-label="Virasat today">
+        <div><strong>{{ craft_count }}</strong><span>Craft traditions</span></div>
+        <div><strong>{{ product_count }}</strong><span>Handmade pieces</span></div>
+        <div><strong>{{ state_count }}</strong><span>States represented</span></div>
+      </div>
+    </div>
+    <div class="store-hero__visual">
+      {% if hero_product %}
+        <a class="store-hero__image" href="{{ hero_product.get_absolute_url }}" aria-label="View {{ hero_product.title }}">
+          {% if hero_product.image %}<img src="{{ hero_product.image.url }}" alt="{{ hero_product.title }} by {{ hero_product.artisan.get_full_name|default:hero_product.artisan.username }}" width="1200" height="1500" fetchpriority="high">{% else %}<img src="{% static 'img/placeholder.svg' %}" alt="No image for {{ hero_product.title }}" width="1200" height="1500">{% endif %}
+        </a>
+        <a class="store-product-label" href="{{ hero_product.get_absolute_url }}">
+          <span><strong>{{ hero_product.title }}</strong><span class="store-product-label__maker">By {{ hero_product.artisan.get_full_name|default:hero_product.artisan.username }} · {{ hero_product.craft.state }}{% if hero_product.artisan.profile.is_verified %} <i class="bi bi-patch-check-fill" role="img" aria-label="Verified artisan"></i>{% endif %}</span></span>
+          <span class="store-product-label__price">₹{{ hero_product.price|floatformat:2|intcomma }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></span>
+        </a>
+      {% else %}
+        <div class="store-hero__empty"><i class="bi bi-flower2" aria-hidden="true"></i><p>New handmade pieces are on their way.</p><a class="btn btn-outline-brand" href="{% url 'catalog:product_list' %}">Explore the collection</a></div>
+      {% endif %}
+    </div>
+  </section>
+
+  <nav class="store-craft-nav" aria-label="Explore craft traditions"><div class="container-xl">
+    {% for craft in crafts|slice:":5" %}<a href="{% url 'catalog:product_list' %}?craft={{ craft.pk }}">{{ craft.name }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>{% endfor %}
+    <a href="#crafts-heading">All traditions <i class="bi bi-arrow-down-right" aria-hidden="true"></i></a>
+  </div></nav>
+
+  <div class="container-xl home-collection">
+  <ul class="trust-rail" aria-label="Why shop with Virasat">
+    <li><i class="bi bi-house-heart" aria-hidden="true"></i><span><strong>Handmade by real artisans</strong> A named maker behind every piece</span></li>
+    <li><i class="bi bi-patch-check" aria-hidden="true"></i><span><strong>Verified artisans</strong> Reviewed profiles carry a verified mark</span></li>
+    <li><i class="bi bi-cash-coin" aria-hidden="true"></i><span><strong>Fair pay to makers</strong> Transparent amounts on every order</span></li>
+    <li><i class="bi bi-geo-alt" aria-hidden="true"></i><span><strong>From across India</strong> Traditions rooted in their regions</span></li>
+  </ul>
+
+  <section class="home-section home-crafts" aria-labelledby="crafts-heading">
+    <div class="section-header">
+      <div><h2 id="crafts-heading">Find your craft.</h2><p class="section-subtitle">{{ craft_count }} traditions. Different places, materials and ways of making.</p></div>
+      <a href="{% url 'catalog:product_list' %}">Browse all pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="craft-grid">
+      {% for craft in crafts %}
+        {% include "partials/_craft_card.html" with craft=craft product_count=craft.published_count %}
+      {% empty %}
+        <p>Craft stories are coming soon.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="featured-heading">
+    <div class="section-header">
+      <div><h2 id="featured-heading">Fresh from the workshop.</h2><p class="section-subtitle">The latest pieces added by our artisans.</p></div>
+      <a href="{% url 'catalog:product_list' %}">See all products <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    {% if featured_products %}
+      <div class="product-grid">
+        {% for product in featured_products %}{% include "partials/_product_card.html" with product=product %}{% endfor %}
+      </div>
+    {% else %}
+      <div class="surface-card empty-state">No products yet. Come back soon.</div>
+    {% endif %}
+  </section>
+
+  {% if featured_artisans %}
+    <section class="home-section maker-section" aria-labelledby="makers-heading">
+      <div class="section-header">
+        <div><h2 id="makers-heading">Meet the makers.</h2><p class="section-subtitle">Named people, practiced hands. These profiles have been verified.</p></div>
+        <a href="{% url 'core:about' %}">Our story <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="artisan-grid">
+        {% for artisan in featured_artisans %}
+          {% include "partials/_artisan_card.html" with artisan=artisan product_count=artisan.live_products %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="market-band" aria-labelledby="market-heading">
+    <div class="market-band__copy">
+      <h2 id="market-heading">Need 50 pieces for a wedding, a shop or a gift?</h2>
+      <p>Post a request and artisans will send proposals. Set the brief, budget and deadline, then choose the offer that fits.</p>
+      <div class="market-band__actions">
+        <a class="btn btn-on-dark" href="{% url 'linkage:request_list' %}">See open requests <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        {% if request.user.profile.is_artisan %}
+          <a class="btn btn-brand" href="{% url 'linkage:matched_requests' %}">Find a match</a>
+        {% else %}
+          <a class="btn btn-brand" href="{% url 'linkage:request_new' %}">Post a request</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="market-band__steps" aria-label="How custom requests work">
+      <div class="market-step"><span>01</span><strong>Post the brief</strong><p>Share the piece, quantity, budget and date.</p></div>
+      <div class="market-step"><span>02</span><strong>Compare offers</strong><p>Read proposals from interested artisans.</p></div>
+      <div class="market-step"><span>03</span><strong>Choose a maker</strong><p>Accept one offer to close the request.</p></div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="home-section how-v2" aria-labelledby="how-heading">
+    <div class="section-header">
+      <div><h2 id="how-heading">A place for buyers. A place for makers.</h2><p class="section-subtitle">Shop a piece or share your work. Here is where each journey starts.</p></div>
+    </div>
+    <div class="how-paths">
+      <article class="how-path">
+        <span class="how-path__icon" aria-hidden="true"><i class="bi bi-bag-heart"></i></span>
+        <h3>For buyers</h3>
+        <ol>
+          <li><strong>Discover</strong> a piece, a craft or a maker.</li>
+          <li><strong>Choose</strong> with clear materials, care and price.</li>
+          <li><strong>Receive</strong> handmade work with a visible fair-pay record.</li>
+        </ol>
+        <a href="{% url 'catalog:product_list' %}">Browse pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </article>
+      <article class="how-path how-path--artisan">
+        <span class="how-path__icon" aria-hidden="true"><i class="bi bi-hammer"></i></span>
+        <h3>For artisans</h3>
+        <ol>
+          <li><strong>Describe</strong> your work in a few simple notes.</li>
+          <li><strong>Review</strong> the draft story, materials and price.</li>
+          <li><strong>Publish</strong> when the listing is ready, and respond to requests.</li>
+        </ol>
+        <a href="{% url 'accounts:register' %}">Join as an artisan <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="stats-band" aria-labelledby="stats-heading">
+    <div class="stats-band__intro">
+      <h2 id="stats-heading">Real work, real people.</h2>
+      <p>A small marketplace with a clear record of its work. These figures update from the database.</p>
+      <a href="{% url 'core:impact' %}">See our impact <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="stats-band__grid">
+      <div class="stats-band__stat"><strong>{{ artisan_count }}</strong><span>Verified artisans</span></div>
+      <div class="stats-band__stat"><strong>{{ product_count }}</strong><span>Handmade pieces</span></div>
+      <div class="stats-band__stat"><strong>{{ craft_count }}</strong><span>Craft traditions</span></div>
+      <div class="stats-band__stat"><strong>{{ state_count }}</strong><span>States represented</span></div>
+    </div>
+  </section>
+
+  {% if recent_products %}
+    <section class="home-section" aria-labelledby="recent-heading">
+      <div class="section-header"><div><h2 id="recent-heading">Come back to these.</h2><p class="section-subtitle">Your recently viewed pieces.</p></div><a href="{% url 'catalog:product_list' %}">Keep browsing <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+      <div class="product-grid">{% for product in recent_products %}{% include "partials/_product_card.html" with product=product %}{% endfor %}</div>
+    </section>
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

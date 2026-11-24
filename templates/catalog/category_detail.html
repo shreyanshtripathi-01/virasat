@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }}{% endblock %}
+{% block content %}
+<div class="container-xl">
+  {% include "partials/_breadcrumbs.html" with parent_url="/products/" parent_label="Products" current=category.name %}
+  <section class="craft-hero craft-hero--category" aria-labelledby="category-title">
+    <div class="craft-hero__copy">
+      <p class="eyebrow">Explore by type</p>
+      <h1 id="category-title">{{ category.name }}</h1>
+      <p>{{ category.description }}</p>
+      <div class="craft-hero__meta"><span class="muted-chip">{{ products|length }} published piece{{ products|length|pluralize }}</span></div>
+      <a class="btn btn-outline-brand" href="{% url 'catalog:product_list' %}?category={{ category.pk }}">Browse this category <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="category-mark" aria-hidden="true"><i class="bi bi-flower2"></i></div>
+  </section>
+
+  <section class="home-section" aria-labelledby="category-products-heading">
+    <div class="section-header">
+      <div><p class="eyebrow">Handmade pieces</p><h2 id="category-products-heading">Explore {{ category.name|lower }}</h2></div>
+      <a href="{% url 'catalog:product_list' %}">Browse all pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    {% if products %}
+      <div class="product-grid">{% for product in products %}{% include "partials/_product_card.html" with product=product %}{% endfor %}</div>
+    {% else %}
+      {% include "partials/_empty_state.html" with title="No published pieces yet" message="This category is ready for new work. Explore the full collection while the artisans prepare more." action_url="/products/" action_label="Browse all pieces" %}
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

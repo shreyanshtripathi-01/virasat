@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Delete product{% endblock %}
+{% block content %}
+<div class="container-xl content-narrow"><div class="surface-card">{% include "partials/_error_art.html" %}<p class="eyebrow">Please check</p><h1>Delete this product?</h1><p><strong>{{ product.title }}</strong> will be removed. Products that have orders cannot be deleted; archive them instead.</p><form class="form-actions" method="post" action="{% url 'catalog:product_delete' product.pk %}">{% csrf_token %}<button class="btn btn-danger" type="submit">Delete product</button><a class="btn btn-outline-brand" href="{% url 'catalog:artisan_products' %}">Keep product</a></form></div></div>
+{% endblock %}

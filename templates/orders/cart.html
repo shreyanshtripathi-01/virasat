@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load humanize static %}
+{% block title %}My cart{% endblock %}
+{% block content %}
+<div class="container-xl">
+  <p class="eyebrow">Your handmade picks</p>
+  <h1>My cart</h1>
+  {% if lines %}
+    {% include "partials/_stepper.html" with current=1 step_one="Cart" step_two="Delivery" step_three="Order" %}
+    <div class="cart-layout"><section aria-label="Cart pieces">
+    {% for line in lines %}
+      <article class="surface-card cart-line">
+        <a href="{{ line.product.get_absolute_url }}">
+          {% if line.product.image %}<img src="{{ line.product.image.url }}" alt="Image of {{ line.product.title }}" width="120" height="150" loading="lazy">{% else %}<img src="{% static 'img/placeholder.svg' %}" alt="Virasat placeholder for {{ line.product.title }}" width="120" height="150" loading="lazy">{% endif %}
+        </a>
+        <div>
+          <h2 class="card-heading"><a href="{{ line.product.get_absolute_url }}">{{ line.product.title }}</a></h2>
+          <p>₹{{ line.product.price|floatformat:2|intcomma }} each · {{ line.product.stock }} available</p>
+          <p><strong>₹{{ line.subtotal|floatformat:2|intcomma }}</strong></p>
+          <div class="form-actions">
+            <form method="post" action="{% url 'orders:cart_update' line.product.pk %}">
+              {% csrf_token %}
+              <label for="quantity-{{ line.product.pk }}">Quantity</label>
+              <select class="form-select quantity-input" id="quantity-{{ line.product.pk }}" name="quantity">
+                {% for quantity in line.quantity_choices %}<option value="{{ quantity }}" {% if quantity == line.quantity %}selected{% endif %}>{{ quantity }}</option>{% endfor %}
+              </select>
+              <button class="btn btn-outline-brand" type="submit">Update</button>
+            </form>
+            <form method="post" action="{% url 'orders:cart_remove' line.product.pk %}">
+              {% csrf_token %}
+              <button class="btn btn-outline-brand" type="submit">Remove</button>
+            </form>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+    </section><aside class="surface-card order-summary-card"><p class="eyebrow">Your order</p><h2 class="card-heading">A little closer to handmade.</h2><div class="order-summary-line"><span>{{ lines|length }} piece{{ lines|length|pluralize }} selected</span></div><div class="order-summary-line"><strong>Total</strong><strong class="numeric">₹{{ total|floatformat:2|intcomma }}</strong></div>
+    <p class="fair-pay-note"><i class="bi bi-cash-coin" aria-hidden="true"></i> Artisans receive the line amount after the {{ platform_fee_percent|floatformat:0 }}% platform fee.</p>
+    <a class="btn btn-brand w-100" href="{% url 'orders:checkout' %}">
+      Continue to checkout <i class="bi bi-arrow-right" aria-hidden="true"></i>
+    </a>
+    <a class="summary-back" href="{% url 'catalog:product_list' %}">Keep browsing</a></aside></div>
+  {% else %}
+    {% include "partials/_empty_state.html" with title="Your cart is empty" message="Find something that speaks to you. The maker, material and story are on every product page." action_url="/products/" action_label="Browse handmade pieces" %}
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% if tone %}
+  <span class="status-badge status-badge--{{ tone }}">{% if icon %}<i class="bi {{ icon }}" aria-hidden="true"></i>{% endif %}{{ label }}</span>
+{% elif status == "published" or status == "approved" or status == "delivered" or status == "accepted" or status == "verified" %}
+  <span class="status-badge status-badge--success"><i class="bi bi-check-circle" aria-hidden="true"></i>{{ label }}</span>
+{% elif status == "rejected" or status == "cancelled" %}
+  <span class="status-badge status-badge--danger"><i class="bi bi-x-circle" aria-hidden="true"></i>{{ label }}</span>
+{% elif status == "archived" or status == "closed" %}
+  <span class="status-badge status-badge--neutral"><i class="bi bi-archive" aria-hidden="true"></i>{{ label }}</span>
+{% elif status == "draft" or status == "pending" or status == "placed" or status == "confirmed" or status == "shipped" or status == "open" %}
+  <span class="status-badge status-badge--warning"><i class="bi bi-clock" aria-hidden="true"></i>{{ label }}</span>
+{% else %}
+  <span class="status-badge status-badge--info"><i class="bi bi-info-circle" aria-hidden="true"></i>{{ label }}</span>
+{% endif %}

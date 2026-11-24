@@ -1,0 +1,7 @@
+{% load humanize %}
+<article class="surface-card proposal-card">
+  <div class="order-item-head"><h3 class="card-heading"><a href="{% url 'accounts:artisan_detail' proposal.artisan.pk %}">{{ proposal.artisan.get_full_name|default:proposal.artisan.username }}</a></h3>{% include "partials/_status_badge.html" with status=proposal.status label=proposal.get_status_display %}</div>
+  <p>{{ proposal.message }}</p>
+  <div class="proposal-terms"><strong class="numeric">₹{{ proposal.price_per_unit|floatformat:2|intcomma }} <small>per piece</small></strong><span><i class="bi bi-truck" aria-hidden="true"></i> {{ proposal.delivery_days }} days</span></div>
+  {% if buyer_request.status == "open" and proposal.status == "pending" %}<div class="form-actions"><form method="post" action="{% url 'linkage:accept_proposal' proposal.pk %}">{% csrf_token %}<button class="btn btn-brand" type="submit">Accept offer</button></form><form method="post" action="{% url 'linkage:reject_proposal' proposal.pk %}">{% csrf_token %}<button class="btn btn-outline-brand" type="submit">Decline</button></form></div>{% endif %}
+</article>

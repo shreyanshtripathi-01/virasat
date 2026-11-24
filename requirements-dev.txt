@@ -1,0 +1,5 @@
+# Optional report and verification tools, never needed to run the marketplace.
+# System tools: Graphviz dot, Google Chrome or Chromium, LibreOffice for PDF export.
+# Node tools installed separately: playwright-core and @axe-core/playwright.
+python-docx>=1.2,<2
+# Diagram rendering uses the system Graphviz executable, not a Django package.

@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Send an offer{% endblock %}
+{% block content %}
+<div class="container-xl content-narrow"><p class="eyebrow">A chance to make something special</p><h1>Send an offer</h1><p>For: <a href="{% url 'linkage:request_detail' buyer_request.pk %}">{{ buyer_request.title }}</a></p><section class="surface-card mt-4"><form method="post" action="{% url 'linkage:propose' buyer_request.pk %}">{% csrf_token %}{% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}{% for field in form %}{% include "partials/_form_field.html" with field=field %}{% endfor %}<button class="btn btn-brand" type="submit">Send offer</button></form></section></div>
+{% endblock %}

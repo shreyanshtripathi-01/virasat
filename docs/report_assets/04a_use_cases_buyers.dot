@@ -1,0 +1,29 @@
+digraph G {
+graph [rankdir=LR, bgcolor=white, dpi=300, pad=.25, nodesep=.35, ranksep=.6, fontname="DejaVu Sans", fontsize=24, labelloc=t, label="Use cases: visitors and buyers"];
+node [shape=box, style="rounded,filled", fillcolor="#FBF5E9", color="#1F2A56", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=19, margin=".18,.12"];
+edge [color="#615A53", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=15, arrowsize=.7];
+subgraph cluster_0 { color="#E4D7C5";
+"Visitor" [label="Visitor",shape="box",fillcolor="#ECEEF5"];
+"case_0_0" [label="Browse and filter catalog",shape="ellipse"];
+"Visitor" -> "case_0_0" [label="",arrowhead="none"];
+"case_0_1" [label="Read product and maker pages",shape="ellipse"];
+"Visitor" -> "case_0_1" [label="",arrowhead="none"];
+"case_0_2" [label="Read about and impact",shape="ellipse"];
+"Visitor" -> "case_0_2" [label="",arrowhead="none"];
+"case_0_3" [label="Choose language; install PWA",shape="ellipse"];
+"Visitor" -> "case_0_3" [label="",arrowhead="none"];
+}
+subgraph cluster_1 { color="#E4D7C5";
+"Buyer" [label="Buyer",shape="box",fillcolor="#ECEEF5"];
+"case_1_0" [label="Register, sign in, edit profile",shape="ellipse"];
+"Buyer" -> "case_1_0" [label="",arrowhead="none"];
+"case_1_1" [label="Save pieces; manage cart",shape="ellipse"];
+"Buyer" -> "case_1_1" [label="",arrowhead="none"];
+"case_1_2" [label="Checkout; track or cancel items",shape="ellipse"];
+"Buyer" -> "case_1_2" [label="",arrowhead="none"];
+"case_1_3" [label="Download invoice; review delivery",shape="ellipse"];
+"Buyer" -> "case_1_3" [label="",arrowhead="none"];
+"case_1_4" [label="Post briefs; decide on proposals",shape="ellipse"];
+"Buyer" -> "case_1_4" [label="",arrowhead="none"];
+}
+}

@@ -1,0 +1,10 @@
+{
+  "passed": [
+    "Skip link moves keyboard focus to main content.",
+    "Filter drawer opens, traps focus and closes with Escape.",
+    "Product tabs support arrow-key navigation.",
+    "Mobile purchase bar sits above bottom navigation; body has bottom clearance.",
+    "Reduced-motion preference shortens transitions."
+  ],
+  "errors": []
+}

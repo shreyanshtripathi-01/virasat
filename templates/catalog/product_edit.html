@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Review product{% endblock %}
+{% block content %}
+<div class="container-xl">
+  {% include "partials/_breadcrumbs.html" with parent_url="/dashboard/products/" parent_label="My products" current=product.title %}
+  <div class="catalog-progress">{% include "partials/_stepper.html" with current=2 %}</div>
+  <header class="page-header"><div><p class="eyebrow">Read, edit, make it yours</p><h1>Review your piece</h1><p class="text-muted">Edit every detail before sharing it. Save draft takes a published piece offline.</p></div>{% include "partials/_status_badge.html" with status=product.status label=product.get_status_display %}</header>
+  {% if product.ai_source == "ai" %}<div class="alert alert-info" role="note"><i class="bi bi-stars" aria-hidden="true"></i> AI draft, please review. Confirm the facts, translation and care advice.</div>{% elif product.ai_source == "fallback" %}<div class="alert alert-info" role="note"><i class="bi bi-journal-text" aria-hidden="true"></i> Offline starter draft, please review. No AI service was used. You can replace every field manually.</div>{% endif %}
+  <div class="catalog-review-layout">
+    <form class="catalog-review-form" method="post" action="{% url 'catalog:product_edit' product.pk %}" enctype="multipart/form-data">
+      {% csrf_token %}{% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+      <section class="surface-card"><h2 class="card-heading">The piece</h2>{% include "partials/_form_field.html" with field=form.title %}<div class="form-grid form-grid--two">{% include "partials/_form_field.html" with field=form.category %}{% include "partials/_form_field.html" with field=form.craft %}</div>{% include "partials/_form_field.html" with field=form.raw_notes %}<div class="form-grid form-grid--two">{% include "partials/_form_field.html" with field=form.materials %}{% include "partials/_form_field.html" with field=form.technique %}</div></section>
+      <div class="language-edit-grid">
+        <section class="surface-card"><p class="eyebrow">English</p><h2 class="card-heading">Tell the story clearly</h2>{% include "partials/_form_field.html" with field=form.description %}</section>
+        <section class="surface-card"><p class="eyebrow" lang="hi">हिंदी</p><h2 class="card-heading">Check the translation</h2><div lang="hi">{% include "partials/_form_field.html" with field=form.hindi_description %}</div></section>
+      </div>
+      <section class="surface-card"><h2 class="card-heading">Heritage and care</h2>{% include "partials/_form_field.html" with field=form.heritage_story %}{% include "partials/_form_field.html" with field=form.care_instructions %}{% include "partials/_form_field.html" with field=form.tags %}</section>
+      <section class="surface-card"><h2 class="card-heading">Price, stock and photo</h2><div class="form-grid form-grid--two">{% include "partials/_form_field.html" with field=form.price %}{% include "partials/_form_field.html" with field=form.stock %}</div>{% include "partials/_form_field.html" with field=form.image %}</section>
+      <section class="surface-card publish-panel" id="publish-confirmation"><div class="form-actions"><button class="btn btn-outline-brand" name="action" value="save" type="submit">Save draft</button><button class="btn btn-brand" type="button" data-bs-toggle="collapse" data-bs-target="#publish-check" aria-expanded="false" aria-controls="publish-check">Continue to publish <i class="bi bi-arrow-right" aria-hidden="true"></i></button></div><div class="collapse" id="publish-check"><div class="publish-check__body">{% include "partials/_stepper.html" with current=3 %}<h2 class="card-heading">Ready to share?</h2><p>Check the English and Hindi text, materials, care, price and stock. Publishing makes this piece visible to buyers.</p><button class="btn btn-brand" name="action" value="publish" type="submit"><i class="bi bi-check2-circle" aria-hidden="true"></i> Confirm and publish</button></div></div></section>
+    </form>
+    <aside class="catalog-preview"><p class="eyebrow">Saved card preview</p>{% include "partials/_product_card.html" with product=product %}<p class="form-text">This preview shows the last saved version. Save your draft to update it.</p><a class="btn btn-outline-brand w-100" href="{{ product.get_absolute_url }}">Preview as buyer</a>
+      <section class="regenerate-panel"><h2 class="card-heading">Need a fresh draft?</h2><p>Regenerating replaces the saved title and catalog text and returns the piece to draft. Unsaved changes are not included.</p>{% if confirm_regenerate %}<form method="post" action="{% url 'catalog:product_regenerate' product.pk %}">{% csrf_token %}<input type="hidden" name="confirm" value="yes"><button class="btn btn-outline-brand w-100" type="submit">Yes, replace the text</button></form><a href="{% url 'catalog:product_edit' product.pk %}">Cancel</a>{% else %}<a class="btn btn-outline-brand w-100" href="?confirm_regenerate=1">Review before regenerating</a>{% endif %}</section>
+    </aside>
+  </div>
+</div>
+{% endblock %}

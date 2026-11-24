@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About{% endblock %}
+{% block content %}
+<div class="container-xl">
+  <section class="about-hero" aria-labelledby="about-title">
+    <div class="about-hero__copy">
+      <p class="eyebrow">Our purpose</p>
+      <h1 id="about-title">Heritage in every <em>handmade piece.</em></h1>
+      <p class="about-lead">Virasat is a marketplace for Indian craft. It connects buyers with named artisans, explains the tradition behind each piece, and keeps the maker visible from listing to delivery.</p>
+      <div class="about-actions">
+        <a class="btn btn-brand" href="{% url 'catalog:product_list' %}">Browse pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn-outline-brand" href="{% url 'core:impact' %}">See our impact</a>
+      </div>
+    </div>
+    <div class="about-hero__panel">
+      <img src="{% static 'img/hero-pattern.svg' %}" alt="" width="480" height="480" aria-hidden="true">
+      <blockquote>"A handmade object carries the hand that made it."</blockquote>
+      <span>Virasat design principle</span>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="values-heading">
+    <div class="section-header">
+      <div><p class="eyebrow">What guides us</p><h2 id="values-heading">Three things we protect.</h2></div>
+    </div>
+    <div class="value-grid">
+      <article class="value-card">
+        <span class="value-card__icon" aria-hidden="true"><i class="bi bi-person-badge"></i></span>
+        <h3>The maker stays visible</h3>
+        <p>Every published product belongs to a named artisan with a profile, a place and a craft speciality. Verification is shown where it applies.</p>
+      </article>
+      <article class="value-card">
+        <span class="value-card__icon" aria-hidden="true"><i class="bi bi-journal-richtext"></i></span>
+        <h3>Craft comes with context</h3>
+        <p>Listings describe materials, technique, care and heritage. Product pages link back to the craft tradition and the region it comes from.</p>
+      </article>
+      <article class="value-card">
+        <span class="value-card__icon" aria-hidden="true"><i class="bi bi-cash-stack"></i></span>
+        <h3>Fair pay is recorded</h3>
+        <p>Order records separate the artisan amount from the platform fee, and the public impact page reports what artisans earned on delivered work.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="about-story">
+    <div class="about-story__copy">
+      <p class="eyebrow">How listings are written</p>
+      <h2>Clear language, with the artisan in control.</h2>
+      <p>Artisans can begin with a few notes about a piece. Virasat can draft the longer description, but the artisan reviews and edits it before publishing. If no AI key is configured, the same flow uses a local writing fallback, so the marketplace still works.</p>
+      <a class="text-link" href="{% url 'accounts:register' %}">Join as an artisan <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <ul class="about-checklist">
+      <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>No invisible automation.</strong> AI-assisted drafts are labelled until the artisan edits them.</span></li>
+      <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>No forced dependency.</strong> The catalog, cart and orders work without an AI key.</span></li>
+      <li><i class="bi bi-check2-circle" aria-hidden="true"></i><span><strong>No lost context.</strong> Craft stories, materials and maker details stay attached to the piece.</span></li>
+    </ul>
+  </section>
+
+  <section class="about-cta">
+    <div><p class="eyebrow">Take part</p><h2>Buy less, know more.</h2><p>Start with a craft tradition, a maker or a piece. Every path leads back to a person.</p></div>
+    <div class="about-cta__actions">
+      <a class="btn btn-brand" href="{% url 'catalog:product_list' %}">Explore the collection</a>
+      <a class="btn btn-outline-brand" href="{% url 'linkage:request_list' %}">See custom requests</a>
+    </div>
+  </section>
+</div>
+{% endblock %}

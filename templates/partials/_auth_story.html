@@ -1,0 +1,24 @@
+{% load static %}
+<aside class="auth-story" aria-labelledby="auth-story-heading">
+  <div class="auth-story__copy">
+    <p class="eyebrow">{{ auth_eyebrow }}</p>
+    <h1 id="auth-story-heading">{{ auth_title }} <em>{{ auth_highlight }}</em></h1>
+    <p>{{ auth_lead }}</p>
+    <ul class="auth-points">
+      <li><i class="bi bi-patch-check" aria-hidden="true"></i> Named artisan profiles</li>
+      <li><i class="bi bi-journal-text" aria-hidden="true"></i> Craft stories and materials</li>
+      <li><i class="bi bi-cash-coin" aria-hidden="true"></i> Fair-pay records on orders</li>
+    </ul>
+    <p class="auth-note"><i class="bi bi-quote" aria-hidden="true"></i> {{ auth_note }}</p>
+  </div>
+  <div class="auth-crafts" aria-label="Craft traditions on Virasat">
+    {% for craft in auth_crafts %}
+      <a class="auth-craft auth-craft--{{ forloop.counter }}" href="{% url 'catalog:craft_detail' craft.slug %}">
+        <img src="{{ craft.image.url }}" alt="{{ craft.name }} craft cover" width="400" height="400" loading="lazy">
+        <span>{{ craft.name }}</span>
+      </a>
+    {% empty %}
+      <span class="auth-craft-fallback" aria-hidden="true"><i class="bi bi-flower2"></i></span>
+    {% endfor %}
+  </div>
+</aside>

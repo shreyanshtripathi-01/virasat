@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<div class="container-xl">
+  {% include "partials/_breadcrumbs.html" with parent_url="/cart/" parent_label="Cart" current="Checkout" %}
+  {% include "partials/_stepper.html" with current=2 step_one="Cart" step_two="Delivery" step_three="Order" %}
+  <p class="eyebrow">A few final details</p><h1>Checkout</h1>
+  <div class="checkout-layout"><section class="surface-card"><h2 class="card-heading">Where should we deliver?</h2>
+    <form method="post" action="{% url 'orders:checkout' %}">{% csrf_token %}{% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+      {% include "partials/_form_field.html" with field=form.full_name %}
+      {% include "partials/_form_field.html" with field=form.phone %}
+      {% include "partials/_form_field.html" with field=form.address %}
+      <div class="form-grid form-grid--two">{% include "partials/_form_field.html" with field=form.city %}{% include "partials/_form_field.html" with field=form.state %}</div>
+      {% include "partials/_form_field.html" with field=form.pincode %}
+      <fieldset class="role-picker"><legend>Payment method</legend><div class="role-grid payment-grid">{% for radio in form.payment_method %}<label class="role-card" for="{{ radio.id_for_label }}">{{ radio.tag }}<span class="role-card__icon" aria-hidden="true"><i class="bi {% if forloop.first %}bi-cash-coin{% else %}bi-phone{% endif %}"></i></span><strong>{{ radio.choice_label }}</strong><span>{% if forloop.first %}Pay when your handmade pieces arrive.{% else %}Demo only, no money moves. No UPI details are collected.{% endif %}</span></label>{% endfor %}</div><div id="id_payment_method_error">{% for error in form.payment_method.errors %}<p class="field-error">{{ error }}</p>{% endfor %}</div></fieldset>
+      <button class="btn btn-brand w-100" type="submit">Place order <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+    </form>
+  </section><aside class="surface-card order-summary-card"><p class="eyebrow">Handmade picks</p><h2 class="card-heading">Your order</h2>{% for line in lines %}<div class="order-summary-line"><span>{{ line.product.title }} × {{ line.quantity }}</span><strong class="numeric">₹{{ line.subtotal|floatformat:2|intcomma }}</strong></div>{% endfor %}<div class="order-summary-line"><strong>Total</strong><strong class="numeric">₹{{ total|floatformat:2|intcomma }}</strong></div><p class="fair-pay-note"><i class="bi bi-shield-check" aria-hidden="true"></i> Stock and prices are checked again when you place the order.</p><a class="summary-back" href="{% url 'orders:cart' %}">Edit cart</a></aside></div>
+</div>
+{% endblock %}

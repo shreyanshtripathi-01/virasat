@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load humanize static %}
+{% block title %}Artisan dashboard{% endblock %}
+{% block content %}
+<div class="container-xl workspace">
+  <header class="page-header"><div><p class="eyebrow">Your workshop</p><h1>Welcome, {{ request.user.first_name|default:request.user.username }}.</h1><p class="text-muted">Your work, orders and next opportunities, in one place.</p></div><a class="btn btn-outline-brand" href="{% url 'accounts:profile' %}">My profile</a></header>
+  <div class="workspace-stats">
+    {% include "partials/_stat.html" with value=published_count label="Published pieces" icon="bi-grid" tone="success" action_url="/dashboard/products/?status=published" %}
+    {% include "partials/_stat.html" with value=draft_count label="Drafts to review" icon="bi-pencil-square" tone="accent" action_url="/dashboard/products/?status=draft" %}
+    {% include "partials/_stat.html" with value=pending_orders label="New orders" icon="bi-box-seam" tone="warning" action_url="/dashboard/orders/" %}
+    {% include "partials/_stat.html" with value=matching_requests label="Matched requests" icon="bi-stars" action_url="/requests/matches/" %}
+  </div>
+  <section class="workspace-cta"><div><p class="eyebrow">Make room for your next piece</p><h2>A few notes. A listing that tells your story.</h2><p>Describe your work, review the draft, then publish when you are ready.</p></div><a class="btn btn-brand" href="{% url 'catalog:product_new' %}"><i class="bi bi-plus-lg" aria-hidden="true"></i> Add a new piece</a></section>
+  <div class="workspace-columns">
+    <section class="surface-card"><div class="section-header"><h2 class="card-heading">Recent orders</h2><a href="{% url 'orders:artisan_orders' %}">All orders</a></div>
+      {% for item in recent_orders %}<div class="activity-row"><div><strong>{{ item.product.title }}</strong><span>{{ item.order.order_number }} · {{ item.quantity }} piece{{ item.quantity|pluralize }}</span></div>{% include "partials/_status_badge.html" with status=item.status label=item.get_status_display %}</div>{% empty %}<p class="text-muted">No orders yet. Your published pieces are ready for buyers.</p>{% endfor %}
+    </section>
+    <section class="surface-card"><div class="section-header"><h2 class="card-heading">Matches for your craft</h2><a href="{% url 'linkage:matched_requests' %}">All matches</a></div>
+      {% for match in matched_preview %}<div class="activity-row"><div><a href="{% url 'linkage:request_detail' match.pk %}"><strong>{{ match.title }}</strong></a><span>{{ match.quantity }} pieces · {{ match.needed_by|date:"d M Y" }}</span></div><span class="match-chip">{% if match.score >= 4 %}Strong match{% elif match.score >= 2 %}Good match{% else %}Location match{% endif %}</span></div>{% empty %}<p class="text-muted">No matching briefs yet. <a href="{% url 'linkage:request_list' %}">Browse open requests</a>.</p>{% endfor %}
+    </section>
+  </div>
+  <section class="earnings-card"><div><p class="eyebrow">After the platform fee</p><h2>Your earnings</h2></div><div class="earnings-values"><div><strong>₹{{ earnings.delivered|floatformat:2|intcomma }}</strong><span><i class="bi bi-circle-fill" aria-hidden="true"></i> Delivered</span></div><div><strong>₹{{ earnings.pending|floatformat:2|intcomma }}</strong><span>Not yet delivered</span></div></div><div class="earnings-track" role="img" aria-label="{{ delivered_percent }} percent of recorded earnings are delivered"><span style="width: {{ delivered_percent }}%"></span></div><p>Cancelled items are excluded. Pending amounts are not yet earned.</p></section>
+  <section class="home-section"><div class="section-header"><h2>Recent pieces</h2><a href="{% url 'catalog:artisan_products' %}">Manage all pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+    {% if recent_products %}<div class="product-grid">{% for product in recent_products %}<article class="product-tile"><a class="product-image-link" href="{% url 'catalog:product_edit' product.pk %}">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.title }}" width="600" height="750" loading="lazy">{% else %}<img src="{% static 'img/placeholder.svg' %}" alt="No image for {{ product.title }}" width="600" height="750" loading="lazy">{% endif %}</a><div class="product-tile-body">{% include "partials/_status_badge.html" with status=product.status label=product.get_status_display %}<h3 class="mt-2">{{ product.title }}</h3><p class="product-price">₹{{ product.price|floatformat:2|intcomma }}</p><a class="btn btn-outline-brand btn-sm" href="{% url 'catalog:product_edit' product.pk %}">Edit piece</a></div></article>{% endfor %}</div>{% else %}{% include "partials/_empty_state.html" with title="Your workshop starts here" message="Add your first handmade piece. It stays private until you publish it." action_url="/dashboard/products/new/" action_label="Add a piece" %}{% endif %}
+  </section>
+</div>
+{% endblock %}

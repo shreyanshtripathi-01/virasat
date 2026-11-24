@@ -1,0 +1,11 @@
+{% if request.user.is_authenticated %}
+<nav class="bottom-nav d-md-none" aria-label="Mobile navigation">
+  <a href="{% url 'core:home' %}"><i class="bi bi-house-door" aria-hidden="true"></i><span>Home</span></a>
+  <a href="{% url 'catalog:product_list' %}"><i class="bi bi-grid" aria-hidden="true"></i><span>Browse</span></a>
+  {% if request.user.profile.is_artisan %}<a href="{% url 'catalog:dashboard' %}"><i class="bi bi-shop" aria-hidden="true"></i><span>My shop</span></a>{% endif %}
+  {% if request.user.profile.is_buyer %}<a href="{% url 'orders:cart' %}"><i class="bi bi-bag" aria-hidden="true"></i><span>Cart{% if request.session.cart %} ({{ request.session.cart|length }}){% endif %}</span></a>{% endif %}
+  <a href="{% url 'linkage:request_list' %}"><i class="bi bi-envelope-paper" aria-hidden="true"></i><span>Requests</span></a>
+  {% if perms.accounts.can_verify_artisan %}<a href="{% url 'accounts:verification_queue' %}"><i class="bi bi-patch-check" aria-hidden="true"></i><span>Verify</span></a>{% endif %}
+  {% if request.user.is_superuser %}<a href="{% url 'admin:index' %}"><i class="bi bi-gear" aria-hidden="true"></i><span>Admin</span></a>{% else %}<a href="{% url 'accounts:profile' %}"><i class="bi bi-person" aria-hidden="true"></i><span>Me</span></a>{% endif %}
+</nav>
+{% endif %}

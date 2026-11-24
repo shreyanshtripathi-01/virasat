@@ -1,0 +1,51 @@
+<footer class="site-footer">
+  <div class="container-xl footer-grid">
+    <div class="footer-brand">
+      <a class="brand footer-logo" href="{% url 'core:home' %}" aria-label="Virasat home">
+        <span class="brand-seal" aria-hidden="true">
+          <svg viewBox="0 0 44 44" focusable="false">
+            <circle class="brand-seal__edge" cx="22" cy="22" r="20.5"></circle>
+            <circle class="brand-seal__stitch" cx="22" cy="22" r="15.5"></circle>
+            <path class="brand-seal__v" d="M14.5 15.5 22 29l7.5-13.5"></path>
+            <circle class="brand-seal__dot" cx="22" cy="34" r="1.5"></circle>
+          </svg>
+        </span>
+        <span class="brand-word">Virasat<span aria-hidden="true">.</span></span>
+      </a>
+      <p>Handmade pieces, the people who make them, and the traditions they carry forward.</p>
+      <div class="footer-lang" aria-label="Language">
+        <a href="{% url 'core:language' 'en' %}" lang="en">English</a>
+        <span aria-hidden="true">·</span>
+        <a href="{% url 'core:language' 'hi' %}" lang="hi">हिंदी</a>
+      </div>
+    </div>
+    <nav class="footer-col" aria-labelledby="footer-shop">
+      <h2 id="footer-shop">Shop</h2>
+      <a href="{% url 'catalog:product_list' %}">Browse pieces</a>
+      <a href="{% url 'core:home' %}#crafts-heading">Craft traditions</a>
+      <a href="{% url 'catalog:product_list' %}?verified_only=on">Verified artisans</a>
+      <a href="{% url 'core:impact' %}">Our impact</a>
+    </nav>
+    <nav class="footer-col" aria-labelledby="footer-people">
+      <h2 id="footer-people">People</h2>
+      <a href="{% url 'core:about' %}">About Virasat</a>
+      <a href="{% url 'linkage:request_list' %}">Open requests</a>
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'accounts:profile' %}">My profile</a>
+      {% else %}
+        <a href="{% url 'accounts:register' %}">Join as an artisan</a>
+      {% endif %}
+      <a href="{% url 'core:home' %}#how-it-works">How it works</a>
+    </nav>
+    <div class="footer-col footer-trust">
+      <h2 id="footer-trust">Made with care</h2>
+      <p><i class="bi bi-patch-check" aria-hidden="true"></i> Verified artisan profiles</p>
+      <p><i class="bi bi-cash-coin" aria-hidden="true"></i> Transparent fair-pay records</p>
+      <p><i class="bi bi-truck" aria-hidden="true"></i> Cash on delivery available</p>
+    </div>
+  </div>
+  <div class="container-xl footer-bottom">
+    <span>© {% now "Y" %} Virasat. Heritage in every handmade piece.</span>
+    <span>Made in India, for the people who keep craft alive.</span>
+  </div>
+</footer>

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}My offers{% endblock %}
+{% block content %}
+<div class="container-xl content-narrow"><p class="eyebrow">Your proposals to buyers</p><h1>My offers</h1><p class="text-muted">See the price, delivery commitment and buyer's decision for every offer.</p>{% for proposal in proposals %}<article class="surface-card proposal-card">{% include "partials/_status_badge.html" with status=proposal.status label=proposal.get_status_display %}<h2 class="card-heading mt-3"><a href="{% url 'linkage:request_detail' proposal.request.pk %}">{{ proposal.request.title }}</a></h2><p>{{ proposal.message }}</p><div class="proposal-terms"><strong class="numeric">₹{{ proposal.price_per_unit|floatformat:2|intcomma }} <small>per piece</small></strong><span><i class="bi bi-truck" aria-hidden="true"></i> {{ proposal.delivery_days }} days</span></div></article>{% empty %}{% include "partials/_empty_state.html" with title="Your next commission starts with a brief" message="Find a request that suits your craft, then send your price and delivery estimate." action_url="/requests/matches/" action_label="Find a matching request" %}{% endfor %}</div>
+{% endblock %}

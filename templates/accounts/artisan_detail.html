@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}{{ artisan.get_full_name|default:artisan.username }}{% endblock %}
+{% block content %}
+<div class="container-xl">
+  {% include "partials/_breadcrumbs.html" with parent_url="/products/" parent_label="Products" current=artisan.get_full_name|default:artisan.username %}
+  <section class="artisan-hero-v2" aria-labelledby="artisan-name">
+    <div class="artisan-portrait">
+      {% if artisan.profile.avatar %}
+        <img src="{{ artisan.profile.avatar.url }}" alt="Portrait of {{ artisan.get_full_name|default:artisan.username }}" width="360" height="360" fetchpriority="high">
+      {% else %}
+        <span aria-hidden="true">{{ artisan.username|first|upper }}</span>
+      {% endif %}
+      {% if artisan.profile.is_verified %}<span class="artisan-portrait__badge"><i class="bi bi-patch-check-fill" aria-hidden="true"></i> Verified</span>{% endif %}
+    </div>
+    <div class="artisan-hero__copy">
+      <p class="eyebrow">Meet the maker</p>
+      <h1 id="artisan-name">{{ artisan.get_full_name|default:artisan.username }}</h1>
+      <p class="artisan-hero__meta">{{ artisan.profile.craft_speciality|default:"Handmade crafts" }} · {{ artisan.profile.city }}, {{ artisan.profile.state }}</p>
+      {% if artisan.profile.bio %}<p class="artisan-bio">{{ artisan.profile.bio }}</p>{% endif %}
+      <div class="artisan-stats">
+        <div><strong>{{ products|length }}</strong><span>Published pieces</span></div>
+        <div><strong>{{ artisan.profile.years_of_experience|default:"New" }}</strong><span>Years in craft</span></div>
+        <div><strong>{{ artisan.date_joined|date:"Y" }}</strong><span>Joined Virasat</span></div>
+      </div>
+      {% if artisan.profile.workshop_name %}<p class="artisan-workshop"><i class="bi bi-house-heart" aria-hidden="true"></i> {{ artisan.profile.workshop_name }}</p>{% endif %}
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="artisan-products-heading">
+    <div class="section-header">
+      <div><p class="eyebrow">Handmade by {{ artisan.first_name|default:artisan.username }}</p><h2 id="artisan-products-heading">Work from this artisan</h2></div>
+      <a href="{% url 'catalog:product_list' %}">Browse all pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    {% if products %}
+      <div class="product-grid">{% for product in products %}{% include "partials/_product_card.html" with product=product %}{% endfor %}</div>
+    {% else %}
+      {% include "partials/_empty_state.html" with title="No published pieces yet" message="This artisan has not published a piece yet. Check back soon or explore work from other verified makers." action_url="/products/" action_label="Browse all pieces" %}
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

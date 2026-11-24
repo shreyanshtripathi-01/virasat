@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Verify artisans{% endblock %}
+{% block content %}
+<div class="container-xl content-narrow">
+  <p class="eyebrow">For trusted verifiers</p>
+  <h1>Artisans to review</h1>
+  <p class="text-muted">Check each profile before approving it. A rejected account stays active but leaves this queue.</p>
+  {% for artisan in artisans %}
+    <article class="surface-card verification-card">
+      <div>
+        <h2 class="card-heading mb-1">{{ artisan.user.get_full_name|default:artisan.user.username }}</h2>
+        <p class="mb-1">{{ artisan.craft_speciality|default:"Craft not added" }}</p>
+        <p class="text-muted mb-2">{{ artisan.city }}, {{ artisan.state }} · {{ artisan.years_of_experience|default:"0" }} years of experience</p>
+        <a href="{% url 'accounts:artisan_detail' artisan.user.pk %}">View public page <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="verification-actions">
+        <form method="post" action="{% url 'accounts:approve' artisan.pk %}">
+          {% csrf_token %}
+          <button class="btn btn-brand" type="submit">Approve</button>
+        </form>
+        <form method="post" action="{% url 'accounts:reject' artisan.pk %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-brand" type="submit">Reject</button>
+        </form>
+      </div>
+    </article>
+  {% empty %}
+    {% include "partials/_empty_state.html" with title="The review queue is clear" message="No artisans need review right now. New pending profiles will appear here without changing the account's ability to sign in." action_url="/accounts/profile/" action_label="My profile" %}
+  {% endfor %}
+</div>
+{% endblock %}

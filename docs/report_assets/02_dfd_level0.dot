@@ -1,0 +1,24 @@
+digraph G {
+graph [rankdir=LR, bgcolor=white, dpi=300, pad=.25, nodesep=.35, ranksep=.6, fontname="DejaVu Sans", fontsize=24, labelloc=t, label="Data flow diagram: Level 0"];
+node [shape=box, style="rounded,filled", fillcolor="#FBF5E9", color="#1F2A56", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=19, margin=".18,.12"];
+edge [color="#615A53", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=15, arrowsize=.7];
+"system" [label="0\nVirasat marketplace",shape="ellipse",fillcolor="#1F2A56",fontcolor="white"];
+"visitor" [label="Visitor"];
+"visitor" -> "system" [label="Search,\nlanguage",constraint="true"];
+"system" -> "visitor" [label="Pages,\ninstall files",color="#B5482A",constraint="false"];
+"buyer" [label="Buyer"];
+"buyer" -> "system" [label="Order data,\nreviews, briefs",constraint="true"];
+"system" -> "buyer" [label="Orders, invoices,\noffers",color="#B5482A",constraint="false"];
+"artisan" [label="Artisan"];
+"artisan" -> "system" [label="Product facts,\nstatus updates",constraint="true"];
+"system" -> "artisan" [label="Drafts, orders,\nmatched briefs",color="#B5482A",constraint="false"];
+"verifier" [label="Verifier"];
+"verifier" -> "system" [label="Approve\nor reject",constraint="false"];
+"system" -> "verifier" [label="Pending profiles,\nresult",color="#B5482A",constraint="true"];
+"admin" [label="Administrator"];
+"admin" -> "system" [label="Maintenance\nchanges",constraint="false"];
+"system" -> "admin" [label="Admin records,\nresults",color="#B5482A",constraint="true"];
+"ai" [label="AI Service"];
+"ai" -> "system" [label="Draft JSON\nor error",constraint="false"];
+"system" -> "ai" [label="Craft facts\nand notes",color="#B5482A",constraint="true"];
+}

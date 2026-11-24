@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Add a product{% endblock %}
+{% block content %}
+<div class="container-xl content-narrow">
+  {% include "partials/_breadcrumbs.html" with parent_url="/dashboard/" parent_label="My workshop" current="Add a piece" %}
+  {% include "partials/_stepper.html" with current=1 %}
+  <p class="eyebrow">Your words first</p><h1>Add a handmade piece</h1><p class="text-muted">Tell us about your work in simple words. Nothing goes public until you review and publish it.</p>
+  <section class="surface-card mt-4"><form method="post" action="{% url 'catalog:product_generate' %}" enctype="multipart/form-data">{% csrf_token %}{% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+    <div class="form-grid form-grid--two">{% include "partials/_form_field.html" with field=form.craft %}{% include "partials/_form_field.html" with field=form.category %}</div>
+    {% include "partials/_form_field.html" with field=form.title_hint %}
+    {% include "partials/_form_field.html" with field=form.materials %}
+    {% include "partials/_form_field.html" with field=form.technique %}
+    {% include "partials/_form_field.html" with field=form.notes %}
+    <div class="form-grid form-grid--two">{% include "partials/_form_field.html" with field=form.price %}{% include "partials/_form_field.html" with field=form.stock %}</div>
+    {% include "partials/_form_field.html" with field=form.image %}
+    <div class="drafting-note"><i class="bi bi-info-circle" aria-hidden="true"></i><p>No AI key? A local starter draft is used. You can write or replace every field manually on the review screen.</p></div>
+    <button class="btn btn-brand" type="submit"><i class="bi bi-stars" aria-hidden="true"></i> Generate with AI</button>
+  </form></section>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}Our impact{% endblock %}
+{% block content %}
+<div class="container-xl impact-page">
+  <header class="listing-header">
+    <div>
+      <p class="eyebrow">Real figures from Virasat</p>
+      <h1>Craft and its people.</h1>
+      <p class="listing-lead">These figures come from the marketplace database and update as artisans and buyers use Virasat.</p>
+    </div>
+    <div class="listing-header__note">
+      <i class="bi bi-graph-up-arrow" aria-hidden="true"></i>
+      <span><strong>Only delivered work counts.</strong> Pending and cancelled items are excluded from artisan earnings.</span>
+    </div>
+  </header>
+
+  <section class="impact-stat-grid" aria-label="Marketplace figures">
+    {% include "partials/_stat.html" with value=verified_artisans label="Verified artisans" icon="bi-patch-check" tone="success" %}
+    {% include "partials/_stat.html" with value=published_count label="Published pieces" icon="bi-grid" tone="info" %}
+    {% include "partials/_stat.html" with value=craft_count label="Craft traditions" icon="bi-flower2" tone="accent" %}
+    {% include "partials/_stat.html" with value=state_count label="States represented" icon="bi-geo-alt" tone="warning" %}
+    {% include "partials/_stat.html" with value=order_count label="Orders placed" icon="bi-receipt" tone="info" %}
+  </section>
+
+  <section class="payout-panel" aria-labelledby="payout-heading">
+    <div>
+      <p class="eyebrow">Fair pay matters</p>
+      <h2 id="payout-heading">₹{{ artisan_paid|floatformat:2|intcomma }}</h2>
+      <p>Earned by artisans on delivered items after the platform fee. This is money tied to completed work, not promises or projections.</p>
+    </div>
+    <i class="bi bi-cash-coin payout-panel__icon" aria-hidden="true"></i>
+  </section>
+
+  <div class="impact-columns">
+    <section class="surface-card" aria-labelledby="top-crafts-heading">
+      <p class="eyebrow">Delivered sales</p>
+      <h2 id="top-crafts-heading" class="card-heading">Crafts by value</h2>
+      {% for craft in top_crafts %}
+        <div class="order-summary-line"><a href="{% url 'catalog:craft_detail' craft.slug %}">{{ craft.name }}</a><strong>₹{{ craft.sales|floatformat:2|intcomma }}</strong></div>
+      {% empty %}
+        <p class="text-muted">No delivered sales yet.</p>
+      {% endfor %}
+    </section>
+    <section class="surface-card" aria-labelledby="top-products-heading">
+      <p class="eyebrow">Buyer reviews</p>
+      <h2 id="top-products-heading" class="card-heading">Buyer favourites</h2>
+      {% for product in top_products %}
+        <div class="order-summary-line"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a><span>{{ product.rating|floatformat:1 }} / 5</span></div>
+      {% empty %}
+        <p class="text-muted">No rated products yet.</p>
+      {% endfor %}
+    </section>
+  </div>
+
+  <section class="impact-note">
+    <div><p class="eyebrow">How we count</p><h2>Numbers with a definition.</h2></div>
+    <p>Verified artisans have an approved profile. Published pieces are available in the catalog. Craft and state totals use the traditions attached to those pieces. Orders include every recorded order, while artisan earnings include delivered items only.</p>
+  </section>
+</div>
+{% endblock %}

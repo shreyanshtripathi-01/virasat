@@ -1,0 +1,18 @@
+digraph G {
+graph [rankdir=TB, bgcolor=white, dpi=300, pad=.25, nodesep=.35, ranksep=.6, fontname="DejaVu Sans", fontsize=24, labelloc=t, label="ER diagram: Django infrastructure"];
+node [shape=box, style="rounded,filled", fillcolor="#FBF5E9", color="#1F2A56", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=19, margin=".18,.12"];
+edge [color="#615A53", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=15, arrowsize=.7];
+graph [splines=polyline, nodesep=.8, ranksep=1.2];
+"auth.User" [shape=plain, style="", fontsize=18, pos="0,370!", label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F2A56"><FONT COLOR="white"><B>User</B></FONT></TD></TR><TR><TD PORT="id" ALIGN="LEFT" BGCOLOR="#FBF5E9">PK id</TD></TR></TABLE>>];
+"auth.Group" [shape=plain, style="", fontsize=18, pos="245,370!", label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F2A56"><FONT COLOR="white"><B>Group</B></FONT></TD></TR><TR><TD PORT="id" ALIGN="LEFT" BGCOLOR="#FBF5E9">PK id</TD></TR></TABLE>>];
+"auth.Permission" [shape=plain, style="", fontsize=18, pos="490,370!", label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F2A56"><FONT COLOR="white"><B>Permission</B></FONT></TD></TR><TR><TD PORT="id" ALIGN="LEFT" BGCOLOR="#FBF5E9">PK id</TD></TR><TR><TD PORT="content_type" ALIGN="LEFT" BGCOLOR="#FBF5E9">FK content_type_id [1]</TD></TR></TABLE>>];
+"contenttypes.ContentType" [shape=plain, style="", fontsize=18, pos="0,185!", label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F2A56"><FONT COLOR="white"><B>ContentType</B></FONT></TD></TR><TR><TD PORT="id" ALIGN="LEFT" BGCOLOR="#FBF5E9">PK id</TD></TR></TABLE>>];
+"admin.LogEntry" [shape=plain, style="", fontsize=18, pos="245,185!", label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F2A56"><FONT COLOR="white"><B>LogEntry</B></FONT></TD></TR><TR><TD PORT="id" ALIGN="LEFT" BGCOLOR="#FBF5E9">PK id</TD></TR><TR><TD PORT="user" ALIGN="LEFT" BGCOLOR="#FBF5E9">FK user_id [1]</TD></TR><TR><TD PORT="content_type" ALIGN="LEFT" BGCOLOR="#FBF5E9">FK content_type_id [0..1]</TD></TR></TABLE>>];
+"sessions.Session" [shape=plain, style="", fontsize=18, pos="490,185!", label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F2A56"><FONT COLOR="white"><B>Session</B></FONT></TD></TR><TR><TD PORT="session_key" ALIGN="LEFT" BGCOLOR="#FBF5E9">PK session_key</TD></TR></TABLE>>];
+"auth.Group" -> "auth.User" [label="groups",dir="both",arrowhead="crow",arrowtail="crow",constraint="false"];
+"auth.Permission" -> "auth.User" [label="user_permissions",dir="both",arrowhead="crow",arrowtail="crow",constraint="false"];
+"auth.Permission" -> "auth.Group" [label="permissions",dir="both",arrowhead="crow",arrowtail="crow",constraint="false"];
+"contenttypes.ContentType":id -> "auth.Permission":content_type [dir="both",arrowtail="tee",arrowhead="crow",constraint="false"];
+"auth.User":id -> "admin.LogEntry":user [dir="both",arrowtail="tee",arrowhead="crow",constraint="false"];
+"contenttypes.ContentType":id -> "admin.LogEntry":content_type [dir="both",arrowtail="tee",arrowhead="crow",constraint="false"];
+}

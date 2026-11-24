@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<div class="container-xl auth-layout auth-layout--v2">
+  {% include "partials/_auth_story.html" with auth_eyebrow="Join the marketplace" auth_title="Make space for" auth_highlight="what matters." auth_lead="Create a buyer account to collect handmade pieces, or an artisan account to share your work." auth_note="Virasat keeps the maker visible at every step." %}
+  <section class="form-card auth-form-card" aria-labelledby="register-form-title">
+    <p class="card-eyebrow">Create an account</p>
+    <h2 id="register-form-title">Join Virasat</h2>
+    <p class="auth-form-lead">Choose how you will use the marketplace, then add your contact details.</p>
+    <form method="post" action="{% url 'accounts:register' %}">
+      {% csrf_token %}
+      {% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+      {% include "partials/_form_field.html" with field=form.username %}
+      {% include "partials/_form_field.html" with field=form.password1 %}
+      {% include "partials/_form_field.html" with field=form.password2 %}
+      <div class="form-grid form-grid--two">
+        {% include "partials/_form_field.html" with field=form.phone %}
+        {% include "partials/_form_field.html" with field=form.state %}
+        {% include "partials/_form_field.html" with field=form.city %}
+      </div>
+
+      <fieldset class="role-picker{% if form.role.errors %} role-picker--error{% endif %}">
+        <legend>I am joining as</legend>
+        <div class="role-grid">
+          {% for radio in form.role %}
+            <label class="role-card" for="{{ radio.id_for_label }}">
+              {{ radio.tag }}
+              <span class="role-card__icon" aria-hidden="true"><i class="bi {% if forloop.first %}bi-hammer{% else %}bi-bag-heart{% endif %}"></i></span>
+              <strong>{{ radio.choice_label }}</strong>
+              <span>{% if forloop.first %}I make handmade work and want to sell it.{% else %}I want to discover and buy handmade pieces.{% endif %}</span>
+            </label>
+          {% endfor %}
+        </div>
+        <div id="id_role_error">{% for error in form.role.errors %}<p class="field-error" role="alert">{{ error }}</p>{% endfor %}</div>
+        <p class="role-note" id="role-note">Artisan accounts begin unverified. A moderator can review the profile before it receives the verified mark.</p>
+      </fieldset>
+
+      <button class="btn btn-brand w-100" type="submit">Create account <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+    </form>
+    <p class="form-footnote">Already have an account? <a href="{% url 'accounts:login' %}">Sign in</a></p>
+  </section>
+</div>
+{% endblock %}

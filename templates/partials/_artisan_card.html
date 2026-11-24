@@ -1,0 +1,17 @@
+<article class="artisan-card card-lift">
+  <div class="artisan-card__top">
+    {% if artisan.profile.avatar %}
+      <img class="profile-photo" src="{{ artisan.profile.avatar.url }}" alt="Portrait of {{ artisan.get_full_name|default:artisan.username }}" width="72" height="72" loading="lazy">
+    {% else %}
+      <span class="avatar-initial" aria-hidden="true">{{ artisan.username|first|upper }}</span>
+    {% endif %}
+    <div>
+      <h3 class="artisan-card__name"><a href="{% url 'accounts:artisan_detail' artisan.pk %}">{{ artisan.get_full_name|default:artisan.username }}</a></h3>
+      <p class="artisan-card__meta">{{ artisan.profile.craft_speciality|default:"Handmade crafts" }} · {{ artisan.profile.state|default:"India" }}{% if artisan.profile.is_verified %} <i class="bi bi-patch-check-fill" role="img" aria-label="Verified artisan"></i>{% endif %}</p>
+    </div>
+  </div>
+  <p class="artisan-card__count">
+    <span>{{ artisan.live_products|default:product_count|default:artisan.products.count }} published piece{{ artisan.live_products|default:product_count|default:artisan.products.count|pluralize }}</span>
+    <a href="{% url 'accounts:artisan_detail' artisan.pk %}">View profile <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+  </p>
+</article>

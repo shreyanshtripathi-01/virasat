@@ -1,0 +1,32 @@
+digraph G {
+graph [rankdir=LR, bgcolor=white, dpi=300, pad=.25, nodesep=.35, ranksep=.6, fontname="DejaVu Sans", fontsize=24, labelloc=t, label="Use cases: artisans and staff"];
+node [shape=box, style="rounded,filled", fillcolor="#FBF5E9", color="#1F2A56", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=19, margin=".18,.12"];
+edge [color="#615A53", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=15, arrowsize=.7];
+subgraph cluster_0 { color="#E4D7C5";
+"Artisan" [label="Artisan",shape="box",fillcolor="#ECEEF5"];
+"case_0_0" [label="Describe, generate and review draft",shape="ellipse"];
+"Artisan" -> "case_0_0" [label="",arrowhead="none"];
+"case_0_1" [label="Publish, edit or archive pieces",shape="ellipse"];
+"Artisan" -> "case_0_1" [label="",arrowhead="none"];
+"case_0_2" [label="Fulfil orders; view earnings",shape="ellipse"];
+"Artisan" -> "case_0_2" [label="",arrowhead="none"];
+"case_0_3" [label="Find matches; send proposals",shape="ellipse"];
+"Artisan" -> "case_0_3" [label="",arrowhead="none"];
+"case_0_4" [label="Edit profile; view public page",shape="ellipse"];
+"Artisan" -> "case_0_4" [label="",arrowhead="none"];
+}
+subgraph cluster_1 { color="#E4D7C5";
+"Verifier" [label="Verifier",shape="box",fillcolor="#ECEEF5"];
+"case_1_0" [label="Review pending artisan profiles",shape="ellipse"];
+"Verifier" -> "case_1_0" [label="",arrowhead="none"];
+"case_1_1" [label="Approve or reject artisan",shape="ellipse"];
+"Verifier" -> "case_1_1" [label="",arrowhead="none"];
+}
+subgraph cluster_2 { color="#E4D7C5";
+"Administrator" [label="Administrator",shape="box",fillcolor="#ECEEF5"];
+"case_2_0" [label="Maintain records in Django Admin",shape="ellipse"];
+"Administrator" -> "case_2_0" [label="",arrowhead="none"];
+"case_2_1" [label="Manage groups and permissions",shape="ellipse"];
+"Administrator" -> "case_2_1" [label="",arrowhead="none"];
+}
+}

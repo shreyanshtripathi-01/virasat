@@ -1,0 +1,160 @@
+digraph G {
+graph [rankdir=TB, bgcolor=white, dpi=300, pad=.25, nodesep=.35, ranksep=.6, fontname="DejaVu Sans", fontsize=24, labelloc=t, label="AI smart catalog\nRequest, fallback and artisan review"];
+node [shape=box, style="rounded,filled", fillcolor="#FBF5E9", color="#1F2A56", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=19, margin=".18,.12"];
+edge [color="#615A53", fontcolor="#1F2A56", fontname="DejaVu Sans", fontsize=15, arrowsize=.7];
+graph [ranksep=.7, nodesep=.4]; node [fontsize=18]; edge [fontsize=16];
+"h0" [label="Artisan\nbrowser",group="c0",fillcolor="#ECEEF5"];
+"h1" [label="Django\nviews",group="c1",fillcolor="#ECEEF5"];
+"h2" [label="Draft\nservice",group="c2",fillcolor="#ECEEF5"];
+"h3" [label="AI\nService",group="c3",fillcolor="#ECEEF5"];
+"h4" [label="SQLite",group="c4",fillcolor="#ECEEF5"];
+{rank=same; h0;h1;h2;h3;h4;}
+"h0" -> "h1" [label="",style="invis",weight="100"];
+"h1" -> "h2" [label="",style="invis",weight="100"];
+"h2" -> "h3" [label="",style="invis",weight="100"];
+"h3" -> "h4" [label="",style="invis",weight="100"];
+"r0c0" [label="",shape="point",width=".03",group="c0"];
+"h0" -> "r0c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r0c1" [label="",shape="point",width=".03",group="c1"];
+"h1" -> "r0c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r0c2" [label="",shape="point",width=".03",group="c2"];
+"h2" -> "r0c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r0c3" [label="",shape="point",width=".03",group="c3"];
+"h3" -> "r0c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r0c4" [label="",shape="point",width=".03",group="c4"];
+"h4" -> "r0c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r0c0;r0c1;r0c2;r0c3;r0c4;}
+"r0c0" -> "r0c1" [label="1 POST notes\nand image",constraint="false",color="#1F2A56"];
+"r1c0" [label="",shape="point",width=".03",group="c0"];
+"r0c0" -> "r1c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r1c1" [label="",shape="point",width=".03",group="c1"];
+"r0c1" -> "r1c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r1c2" [label="",shape="point",width=".03",group="c2"];
+"r0c2" -> "r1c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r1c3" [label="",shape="point",width=".03",group="c3"];
+"r0c3" -> "r1c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r1c4" [label="",shape="point",width=".03",group="c4"];
+"r0c4" -> "r1c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r1c0;r1c1;r1c2;r1c3;r1c4;}
+"r1c1" -> "r1c2" [label="2 Key / quota\nDraft or fallback",constraint="false",color="#1F2A56"];
+"r2c0" [label="",shape="point",width=".03",group="c0"];
+"r1c0" -> "r2c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r2c1" [label="",shape="point",width=".03",group="c1"];
+"r1c1" -> "r2c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r2c2" [label="",shape="point",width=".03",group="c2"];
+"r1c2" -> "r2c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r2c3" [label="",shape="point",width=".03",group="c3"];
+"r1c3" -> "r2c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r2c4" [label="",shape="point",width=".03",group="c4"];
+"r1c4" -> "r2c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r2c0;r2c1;r2c2;r2c3;r2c4;}
+"r2c2" -> "r2c2" [label="3 Prepare clean\nlocal fallback",constraint="false",color="#B5482A"];
+"r3c0" [label="",shape="point",width=".03",group="c0"];
+"r2c0" -> "r3c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r3c1" [label="",shape="point",width=".03",group="c1"];
+"r2c1" -> "r3c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r3c2" [label="",shape="point",width=".03",group="c2"];
+"r2c2" -> "r3c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r3c3" [label="",shape="point",width=".03",group="c3"];
+"r2c3" -> "r3c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r3c4" [label="",shape="point",width=".03",group="c4"];
+"r2c4" -> "r3c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r3c0;r3c1;r3c2;r3c3;r3c4;}
+"r3c2" -> "r3c3" [label="4 [allowed] facts\nHTTPS, 20 s timeout",constraint="false",color="#1F2A56"];
+"r4c0" [label="",shape="point",width=".03",group="c0"];
+"r3c0" -> "r4c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r4c1" [label="",shape="point",width=".03",group="c1"];
+"r3c1" -> "r4c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r4c2" [label="",shape="point",width=".03",group="c2"];
+"r3c2" -> "r4c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r4c3" [label="",shape="point",width=".03",group="c3"];
+"r3c3" -> "r4c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r4c4" [label="",shape="point",width=".03",group="c4"];
+"r3c4" -> "r4c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r4c0;r4c1;r4c2;r4c3;r4c4;}
+"r4c3" -> "r4c2" [label="5 JSON or error",constraint="false",color="#1F2A56"];
+"r5c0" [label="",shape="point",width=".03",group="c0"];
+"r4c0" -> "r5c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r5c1" [label="",shape="point",width=".03",group="c1"];
+"r4c1" -> "r5c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r5c2" [label="",shape="point",width=".03",group="c2"];
+"r4c2" -> "r5c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r5c3" [label="",shape="point",width=".03",group="c3"];
+"r4c3" -> "r5c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r5c4" [label="",shape="point",width=".03",group="c4"];
+"r4c4" -> "r5c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r5c0;r5c1;r5c2;r5c3;r5c4;}
+"r5c2" -> "r5c2" [label="6 ALT valid: clean JSON\nELSE: local fallback",constraint="false",color="#B5482A"];
+"r6c0" [label="",shape="point",width=".03",group="c0"];
+"r5c0" -> "r6c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r6c1" [label="",shape="point",width=".03",group="c1"];
+"r5c1" -> "r6c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r6c2" [label="",shape="point",width=".03",group="c2"];
+"r5c2" -> "r6c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r6c3" [label="",shape="point",width=".03",group="c3"];
+"r5c3" -> "r6c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r6c4" [label="",shape="point",width=".03",group="c4"];
+"r5c4" -> "r6c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r6c0;r6c1;r6c2;r6c3;r6c4;}
+"r6c2" -> "r6c1" [label="7 Draft + source",constraint="false",color="#1F2A56"];
+"r7c0" [label="",shape="point",width=".03",group="c0"];
+"r6c0" -> "r7c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r7c1" [label="",shape="point",width=".03",group="c1"];
+"r6c1" -> "r7c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r7c2" [label="",shape="point",width=".03",group="c2"];
+"r6c2" -> "r7c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r7c3" [label="",shape="point",width=".03",group="c3"];
+"r6c3" -> "r7c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r7c4" [label="",shape="point",width=".03",group="c4"];
+"r6c4" -> "r7c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r7c0;r7c1;r7c2;r7c3;r7c4;}
+"r7c1" -> "r7c4" [label="8 Save draft Product",constraint="false",color="#1F2A56"];
+"r8c0" [label="",shape="point",width=".03",group="c0"];
+"r7c0" -> "r8c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r8c1" [label="",shape="point",width=".03",group="c1"];
+"r7c1" -> "r8c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r8c2" [label="",shape="point",width=".03",group="c2"];
+"r7c2" -> "r8c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r8c3" [label="",shape="point",width=".03",group="c3"];
+"r7c3" -> "r8c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r8c4" [label="",shape="point",width=".03",group="c4"];
+"r7c4" -> "r8c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r8c0;r8c1;r8c2;r8c3;r8c4;}
+"r8c1" -> "r8c0" [label="9 Redirect to review",constraint="false",color="#1F2A56"];
+"r9c0" [label="",shape="point",width=".03",group="c0"];
+"r8c0" -> "r9c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r9c1" [label="",shape="point",width=".03",group="c1"];
+"r8c1" -> "r9c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r9c2" [label="",shape="point",width=".03",group="c2"];
+"r8c2" -> "r9c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r9c3" [label="",shape="point",width=".03",group="c3"];
+"r8c3" -> "r9c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r9c4" [label="",shape="point",width=".03",group="c4"];
+"r8c4" -> "r9c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r9c0;r9c1;r9c2;r9c3;r9c4;}
+"r9c0" -> "r9c1" [label="10 POST edited fields\nSave or publish",constraint="false",color="#1F2A56"];
+"r10c0" [label="",shape="point",width=".03",group="c0"];
+"r9c0" -> "r10c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r10c1" [label="",shape="point",width=".03",group="c1"];
+"r9c1" -> "r10c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r10c2" [label="",shape="point",width=".03",group="c2"];
+"r9c2" -> "r10c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r10c3" [label="",shape="point",width=".03",group="c3"];
+"r9c3" -> "r10c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r10c4" [label="",shape="point",width=".03",group="c4"];
+"r9c4" -> "r10c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r10c0;r10c1;r10c2;r10c3;r10c4;}
+"r10c1" -> "r10c4" [label="11 Owner-checked status update",constraint="false",color="#1F2A56"];
+"r11c0" [label="",shape="point",width=".03",group="c0"];
+"r10c0" -> "r11c0" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r11c1" [label="",shape="point",width=".03",group="c1"];
+"r10c1" -> "r11c1" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r11c2" [label="",shape="point",width=".03",group="c2"];
+"r10c2" -> "r11c2" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r11c3" [label="",shape="point",width=".03",group="c3"];
+"r10c3" -> "r11c3" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+"r11c4" [label="",shape="point",width=".03",group="c4"];
+"r10c4" -> "r11c4" [label="",style="dashed",arrowhead="none",color="#B5BDD5",weight="100"];
+{rank=same; r11c0;r11c1;r11c2;r11c3;r11c4;}
+"r11c1" -> "r11c0" [label="12 Saved status",constraint="false",color="#1F2A56"];
+}

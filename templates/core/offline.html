@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}You are offline{% endblock %}
+{% block content %}
+<div class="container-xl">
+  <section class="surface-card offline-card" aria-labelledby="offline-heading">
+    <div class="offline-illustration" aria-hidden="true">
+      <svg viewBox="0 0 120 120" role="img" focusable="false">
+        <circle cx="60" cy="60" r="54" fill="#F3E5D1"></circle>
+        <path d="M35 72a25 25 0 0 1 50 0" fill="none" stroke="#1F2A56" stroke-width="6" stroke-linecap="round"></path>
+        <path d="M45 82a15 15 0 0 1 30 0" fill="none" stroke="#B5482A" stroke-width="6" stroke-linecap="round"></path>
+        <circle cx="60" cy="91" r="4" fill="#E3A018"></circle>
+      </svg>
+    </div>
+    <p class="eyebrow">No connection</p>
+    <h1 id="offline-heading">You are offline</h1>
+    <p class="offline-copy">The internet connection is unavailable. Check your signal or Wi-Fi, then try again. Your saved sign-in and cart stay on this device.</p>
+    <form method="get" action="{% url 'core:home' %}">
+      <button class="btn btn-brand" type="submit">Try again</button>
+    </form>
+    <p class="offline-note">Only this offline page, the site styles and the app icons are stored on your device. Product and account pages always need a connection.</p>
+  </section>
+</div>
+{% endblock %}

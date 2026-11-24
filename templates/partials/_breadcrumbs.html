@@ -1,0 +1,6 @@
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <a href="{% url 'core:home' %}">Home</a>
+  <span aria-hidden="true">/</span>
+  {% if parent_url %}<a href="{{ parent_url }}">{{ parent_label }}</a><span aria-hidden="true">/</span>{% endif %}
+  <span aria-current="page">{{ current }}</span>
+</nav>

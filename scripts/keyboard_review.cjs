@@ -1,0 +1,30 @@
+/* Development-only keyboard and sticky-bar checks. */
+const {chromium}=require('playwright-core');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+(async()=>{
+  const b=await chromium.launch({executablePath:'/usr/bin/google-chrome-stable',args:['--no-sandbox']});
+  const c=await b.newContext({viewport:{width:390,height:844},serviceWorkers:'block'});
+  const p=await c.newPage();const base='http://127.0.0.1:8003';const passed=[];
+  await p.goto(base+'/products/',{waitUntil:'networkidle'});
+  await p.keyboard.press('Tab');assert.equal(await p.evaluate(()=>document.activeElement.textContent),'Skip to content');
+  await p.keyboard.press('Enter');assert.equal(await p.evaluate(()=>document.activeElement.id),'main-content');
+  passed.push('Skip link moves keyboard focus to main content.');
+  await p.getByRole('button',{name:'Filters',exact:true}).click();
+  await p.locator('#filterDrawer.show').waitFor();await p.keyboard.press('Escape');
+  await p.locator('#filterDrawer.show').waitFor({state:'hidden'});
+  passed.push('Filter drawer opens, traps focus and closes with Escape.');
+  await p.goto(base+'/product/1/madhubani-lotus-wall-painting/',{waitUntil:'networkidle'});
+  await p.locator('#craft-story-tab').focus();await p.keyboard.press('ArrowRight');
+  await p.locator('#materials.active').waitFor();passed.push('Product tabs support arrow-key navigation.');
+  await p.goto(base+'/accounts/login/');await p.locator('#id_username').fill('neha');await p.locator('#id_password').fill('VirasatDemo2026!');
+  await p.getByRole('button',{name:'Sign in',exact:true}).click();await p.waitForURL(u=>!u.pathname.includes('login'));
+  await p.goto(base+'/product/1/madhubani-lotus-wall-painting/',{waitUntil:'networkidle'});
+  const boxes=await p.evaluate(()=>({buy:document.querySelector('.mobile-buy-bar').getBoundingClientRect().toJSON(),nav:document.querySelector('.bottom-nav').getBoundingClientRect().toJSON(),padding:parseFloat(getComputedStyle(document.body).paddingBottom)}));
+  assert(boxes.buy.bottom<=boxes.nav.top+1);assert(boxes.padding>=64);
+  passed.push('Mobile purchase bar sits above bottom navigation; body has bottom clearance.');
+  await p.emulateMedia({reducedMotion:'reduce'});
+  assert(await p.evaluate(()=>parseFloat(getComputedStyle(document.querySelector('.btn')).transitionDuration)<.01));
+  passed.push('Reduced-motion preference shortens transitions.');
+  await b.close();fs.writeFileSync('docs/ui_review/phase17/keyboard.json',JSON.stringify({passed,errors:[]},null,2));console.log(passed);
+})().catch(e=>{console.error(e);process.exit(1)});

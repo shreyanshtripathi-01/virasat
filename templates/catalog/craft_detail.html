@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}{{ craft.name }}{% endblock %}
+{% block content %}
+<div class="container-xl">
+  {% include "partials/_breadcrumbs.html" with parent_url="/products/" parent_label="Products" current=craft.name %}
+  <section class="craft-hero" aria-labelledby="craft-title">
+    {% if craft.image %}
+      <figure class="craft-hero__media">
+        <img src="{{ craft.image.url }}" alt="{{ craft.name }} craft cover" width="800" height="800" fetchpriority="high">
+      </figure>
+    {% endif %}
+    <div class="craft-hero__copy">
+      <p class="eyebrow">A craft from {{ craft.state }}</p>
+      <h1 id="craft-title">{{ craft.name }}</h1>
+      <p>{{ craft.description }}</p>
+      <div class="craft-hero__meta">
+        {% if craft.gi_tagged %}<span class="status-chip approved"><i class="bi bi-patch-check-fill" aria-hidden="true"></i> GI tagged tradition</span>{% endif %}
+        <span class="muted-chip">{{ products|length }} published piece{{ products|length|pluralize }}</span>
+      </div>
+      <a class="btn btn-outline-brand" href="{% url 'catalog:product_list' %}?craft={{ craft.pk }}">Shop this craft <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="craft-products-heading">
+    <div class="section-header">
+      <div><p class="eyebrow">Handmade in {{ craft.state }}</p><h2 id="craft-products-heading">Pieces from this tradition</h2></div>
+      <a href="{% url 'catalog:product_list' %}">Browse all pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    {% if products %}
+      <div class="product-grid">{% for product in products %}{% include "partials/_product_card.html" with product=product %}{% endfor %}</div>
+    {% else %}
+      {% include "partials/_empty_state.html" with title="No published pieces yet" message="This craft has a story on Virasat, but the artisans have not published a piece in it yet. Explore another tradition in the meantime." action_url="/products/" action_label="Browse all pieces" %}
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

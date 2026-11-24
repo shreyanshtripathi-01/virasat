@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Browse handmade pieces{% endblock %}
+{% block content %}
+<div class="container-xl">
+  <header class="listing-header">
+    <div>
+      <h1>Find something handmade.</h1>
+      <p class="listing-lead">Browse by craft, state, price or maker. Every published piece belongs to a named artisan.</p>
+    </div>
+    <div class="listing-header__note">
+      <i class="bi bi-patch-check" aria-hidden="true"></i>
+      <span><strong>Buy with context.</strong> Read the material, technique and maker behind each piece.</span>
+    </div>
+  </header>
+
+  <div class="browse-layout">
+    <aside class="browse-sidebar" aria-label="Product filters">
+      <div class="offcanvas-lg offcanvas-start filters-drawer" tabindex="-1" id="filterDrawer" aria-labelledby="filter-drawer-title">
+        <div class="offcanvas-header filter-drawer-head">
+          <div>
+            <p class="eyebrow">Refine</p>
+            <h2 id="filter-drawer-title">Filter products</h2>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#filterDrawer" aria-label="Close filters"></button>
+        </div>
+        <div class="offcanvas-body filter-drawer-body">
+          <form method="get" action="{% url 'catalog:product_list' %}" class="filters-form">
+            <input type="hidden" name="sort" value="{{ current_sort }}">
+            {% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+            {% include "partials/_form_field.html" with field=form.q %}
+            <div class="filter-group">
+              <p class="filter-group__label">Narrow the collection</p>
+              {% include "partials/_form_field.html" with field=form.category %}
+              {% include "partials/_form_field.html" with field=form.craft %}
+              {% include "partials/_form_field.html" with field=form.state %}
+            </div>
+            <div class="filter-group">
+              <p class="filter-group__label">Price in rupees</p>
+              <div class="price-row">
+                {% include "partials/_form_field.html" with field=form.min_price %}
+                {% include "partials/_form_field.html" with field=form.max_price %}
+              </div>
+            </div>
+            {% include "partials/_form_field.html" with field=form.verified_only %}
+            <div class="filter-actions">
+              <button class="btn btn-brand w-100" type="submit">Show products</button>
+              <a class="filter-clear" href="{% url 'catalog:product_list' %}">Clear filters</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </aside>
+
+    <div class="browse-results">
+      {% if form.errors %}
+        <div class="alert alert-warning" role="alert">Please check the filters. An invalid price range cannot be applied.</div>
+      {% endif %}
+      <div class="browse-toolbar">
+        <div>
+          <p class="result-count"><strong>{{ page_obj.paginator.count }}</strong> handmade piece{{ page_obj.paginator.count|pluralize }} found</p>
+          {% if active_filters %}
+            <div class="active-filters" aria-label="Active filters">
+              <span class="active-filters__label">Active</span>
+              {% for filter in active_filters %}
+                <a class="filter-chip" href="?{{ filter.query }}" aria-label="Remove filter {{ filter.label }} {{ filter.value }}">{{ filter.label }}: {{ filter.value }} <i class="bi bi-x-lg" aria-hidden="true"></i></a>
+              {% endfor %}
+              <a class="filter-clear-all" href="{% url 'catalog:product_list' %}">Clear all</a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="browse-tools">
+          <button class="btn btn-outline-brand filter-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterDrawer" aria-controls="filterDrawer">
+            <i class="bi bi-sliders" aria-hidden="true"></i> Filters{% if active_filters %} ({{ active_filters|length }}){% endif %}
+          </button>
+          <form class="browse-sort" method="get" action="{% url 'catalog:product_list' %}">
+            {% for key, value in request.GET.items %}
+              {% if key != "sort" and key != "page" %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endif %}
+            {% endfor %}
+            <label for="sort-select">Sort</label>
+            <select id="sort-select" name="sort" class="form-select" aria-label="Sort products">
+              {% for value, label in sort_choices %}
+                <option value="{{ value }}" {% if current_sort == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+            <button class="btn btn-outline-brand btn-sm" type="submit">Apply</button>
+          </form>
+        </div>
+      </div>
+
+      {% if page_obj.object_list %}
+        <h2 class="visually-hidden">Handmade pieces</h2>
+        <div class="product-grid">
+          {% for product in page_obj %}{% include "partials/_product_card.html" with product=product %}{% endfor %}
+        </div>
+        {% include "partials/_pagination.html" %}
+      {% else %}
+        {% include "partials/_empty_state.html" with title="No pieces match those filters" message="Try a different craft, state or price range. You can also clear the filters to see the whole collection." action_url="/products/" action_label="Clear filters" secondary_url="/#crafts-heading" secondary_label="Explore craft traditions" %}
+      {% endif %}
+    </div>
+  </div>
+
+  {% if recent_products %}
+    <section class="home-section" aria-labelledby="recent-heading">
+      <div class="section-header"><div><p class="eyebrow">Your browsing</p><h2 id="recent-heading">Recently viewed</h2></div></div>
+      <div class="product-grid">{% for product in recent_products %}{% include "partials/_product_card.html" with product=product %}{% endfor %}</div>
+    </section>
+  {% endif %}
+</div>
+{% endblock %}

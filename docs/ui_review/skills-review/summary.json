@@ -1,0 +1,21 @@
+{
+  "reviewed": "2026-11-24",
+  "world": "Selvedge",
+  "impeccable": {
+    "viewport": "1280x800",
+    "findings": {
+      "home": 0,
+      "browse": 0,
+      "product_detail": 0
+    }
+  },
+  "responsive_check": {
+    "page_size_combinations": 140,
+    "issues": 0
+  },
+  "tests_passed": 93,
+  "django_check": "clean",
+  "migrations": "none",
+  "forbidden_dash_hits": 0,
+  "taste_gate": "not claimed: the static-build gate and its required scripted hero entrance do not fit this Django project with a no custom JavaScript constraint"
+}

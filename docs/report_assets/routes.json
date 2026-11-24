@@ -1,0 +1,366 @@
+[
+  {
+    "name": "core:home",
+    "pattern": "",
+    "view": "core.views.home",
+    "source": "core/views.py",
+    "line": 21
+  },
+  {
+    "name": "core:about",
+    "pattern": "about/",
+    "view": "core.views.about",
+    "source": "core/views.py",
+    "line": 51
+  },
+  {
+    "name": "core:impact",
+    "pattern": "impact/",
+    "view": "core.views.impact",
+    "source": "core/views.py",
+    "line": 57
+  },
+  {
+    "name": "core:manifest",
+    "pattern": "manifest.webmanifest",
+    "view": "core.views.manifest",
+    "source": "core/views.py",
+    "line": 101
+  },
+  {
+    "name": "core:service_worker",
+    "pattern": "sw.js",
+    "view": "core.views.service_worker",
+    "source": "core/views.py",
+    "line": 149
+  },
+  {
+    "name": "core:offline",
+    "pattern": "offline/",
+    "view": "core.views.offline",
+    "source": "core/views.py",
+    "line": 161
+  },
+  {
+    "name": "core:language",
+    "pattern": "^language/(?P<language>en|hi)/$",
+    "view": "core.views.change_language",
+    "source": "core/views.py",
+    "line": 84
+  },
+  {
+    "name": "accounts:register",
+    "pattern": "accounts/register/",
+    "view": "accounts.views.register",
+    "source": "accounts/views.py",
+    "line": 60
+  },
+  {
+    "name": "accounts:login",
+    "pattern": "accounts/login/",
+    "view": "accounts.views.login_view",
+    "source": "accounts/views.py",
+    "line": 86
+  },
+  {
+    "name": "accounts:logout",
+    "pattern": "accounts/logout/",
+    "view": "accounts.views.logout_view",
+    "source": "accounts/views.py",
+    "line": 114
+  },
+  {
+    "name": "accounts:profile",
+    "pattern": "accounts/profile/",
+    "view": "accounts.views.profile",
+    "source": "accounts/views.py",
+    "line": 122
+  },
+  {
+    "name": "accounts:profile_edit",
+    "pattern": "accounts/profile/edit/",
+    "view": "accounts.views.edit_profile",
+    "source": "accounts/views.py",
+    "line": 130
+  },
+  {
+    "name": "accounts:artisan_detail",
+    "pattern": "artisans/<int:pk>/",
+    "view": "accounts.views.artisan_detail",
+    "source": "accounts/views.py",
+    "line": 146
+  },
+  {
+    "name": "accounts:verification_queue",
+    "pattern": "accounts/verify/",
+    "view": "accounts.views.verification_queue",
+    "source": "accounts/views.py",
+    "line": 158
+  },
+  {
+    "name": "accounts:approve",
+    "pattern": "accounts/verify/<int:pk>/approve/",
+    "view": "accounts.views.approve_artisan",
+    "source": "accounts/views.py",
+    "line": 170
+  },
+  {
+    "name": "accounts:reject",
+    "pattern": "accounts/verify/<int:pk>/reject/",
+    "view": "accounts.views.reject_artisan",
+    "source": "accounts/views.py",
+    "line": 189
+  },
+  {
+    "name": "catalog:product_list",
+    "pattern": "products/",
+    "view": "catalog.views.product_list",
+    "source": "catalog/views.py",
+    "line": 95
+  },
+  {
+    "name": "catalog:review",
+    "pattern": "product/<int:pk>/review/",
+    "view": "catalog.views.submit_review",
+    "source": "catalog/views.py",
+    "line": 202
+  },
+  {
+    "name": "catalog:product_detail",
+    "pattern": "^product/(?P<pk>\\d+)/(?P<slug>[-\\w]+)/$",
+    "view": "catalog.views.product_detail",
+    "source": "catalog/views.py",
+    "line": 116
+  },
+  {
+    "name": "catalog:craft_detail",
+    "pattern": "craft/<slug:slug>/",
+    "view": "catalog.views.craft_detail",
+    "source": "catalog/views.py",
+    "line": 160
+  },
+  {
+    "name": "catalog:category_detail",
+    "pattern": "category/<slug:slug>/",
+    "view": "catalog.views.category_detail",
+    "source": "catalog/views.py",
+    "line": 168
+  },
+  {
+    "name": "catalog:wishlist",
+    "pattern": "wishlist/",
+    "view": "catalog.views.wishlist",
+    "source": "catalog/views.py",
+    "line": 178
+  },
+  {
+    "name": "catalog:wishlist_toggle",
+    "pattern": "wishlist/toggle/<int:pk>/",
+    "view": "catalog.views.toggle_wishlist",
+    "source": "catalog/views.py",
+    "line": 188
+  },
+  {
+    "name": "catalog:dashboard",
+    "pattern": "dashboard/",
+    "view": "catalog.views.artisan_dashboard",
+    "source": "catalog/views.py",
+    "line": 269
+  },
+  {
+    "name": "catalog:artisan_products",
+    "pattern": "dashboard/products/",
+    "view": "catalog.views.artisan_products",
+    "source": "catalog/views.py",
+    "line": 295
+  },
+  {
+    "name": "catalog:product_new",
+    "pattern": "dashboard/products/new/",
+    "view": "catalog.views.new_product",
+    "source": "catalog/views.py",
+    "line": 308
+  },
+  {
+    "name": "catalog:product_generate",
+    "pattern": "dashboard/products/generate/",
+    "view": "catalog.views.generate_product",
+    "source": "catalog/views.py",
+    "line": 315
+  },
+  {
+    "name": "catalog:product_edit",
+    "pattern": "dashboard/products/<int:pk>/edit/",
+    "view": "catalog.views.edit_product",
+    "source": "catalog/views.py",
+    "line": 336
+  },
+  {
+    "name": "catalog:product_regenerate",
+    "pattern": "dashboard/products/<int:pk>/regenerate/",
+    "view": "catalog.views.regenerate_product",
+    "source": "catalog/views.py",
+    "line": 365
+  },
+  {
+    "name": "catalog:product_status",
+    "pattern": "dashboard/products/<int:pk>/status/",
+    "view": "catalog.views.change_product_status",
+    "source": "catalog/views.py",
+    "line": 384
+  },
+  {
+    "name": "catalog:product_delete",
+    "pattern": "dashboard/products/<int:pk>/delete/",
+    "view": "catalog.views.delete_product",
+    "source": "catalog/views.py",
+    "line": 408
+  },
+  {
+    "name": "orders:cart",
+    "pattern": "cart/",
+    "view": "orders.views.cart_page",
+    "source": "orders/views.py",
+    "line": 47
+  },
+  {
+    "name": "orders:cart_add",
+    "pattern": "cart/add/<int:pk>/",
+    "view": "orders.views.cart_add",
+    "source": "orders/views.py",
+    "line": 59
+  },
+  {
+    "name": "orders:cart_update",
+    "pattern": "cart/update/<int:pk>/",
+    "view": "orders.views.cart_update",
+    "source": "orders/views.py",
+    "line": 75
+  },
+  {
+    "name": "orders:cart_remove",
+    "pattern": "cart/remove/<int:pk>/",
+    "view": "orders.views.cart_remove",
+    "source": "orders/views.py",
+    "line": 88
+  },
+  {
+    "name": "orders:checkout",
+    "pattern": "checkout/",
+    "view": "orders.views.checkout",
+    "source": "orders/views.py",
+    "line": 125
+  },
+  {
+    "name": "orders:order_list",
+    "pattern": "orders/",
+    "view": "orders.views.buyer_orders",
+    "source": "orders/views.py",
+    "line": 152
+  },
+  {
+    "name": "orders:invoice",
+    "pattern": "^orders/VR(?P<pk>\\d{6})/invoice/$",
+    "view": "orders.views.invoice",
+    "source": "orders/views.py",
+    "line": 170
+  },
+  {
+    "name": "orders:order_detail",
+    "pattern": "^orders/VR(?P<pk>\\d{6})/$",
+    "view": "orders.views.order_detail",
+    "source": "orders/views.py",
+    "line": 160
+  },
+  {
+    "name": "orders:cancel_item",
+    "pattern": "orders/items/<int:pk>/cancel/",
+    "view": "orders.views.cancel_item",
+    "source": "orders/views.py",
+    "line": 188
+  },
+  {
+    "name": "orders:artisan_orders",
+    "pattern": "dashboard/orders/",
+    "view": "orders.views.artisan_orders",
+    "source": "orders/views.py",
+    "line": 212
+  },
+  {
+    "name": "orders:item_status",
+    "pattern": "dashboard/orders/items/<int:pk>/status/",
+    "view": "orders.views.update_item_status",
+    "source": "orders/views.py",
+    "line": 222
+  },
+  {
+    "name": "linkage:request_list",
+    "pattern": "requests/",
+    "view": "linkage.views.request_list",
+    "source": "linkage/views.py",
+    "line": 26
+  },
+  {
+    "name": "linkage:matched_requests",
+    "pattern": "requests/matches/",
+    "view": "linkage.views.matched_requests",
+    "source": "linkage/views.py",
+    "line": 36
+  },
+  {
+    "name": "linkage:request_new",
+    "pattern": "requests/new/",
+    "view": "linkage.views.new_request",
+    "source": "linkage/views.py",
+    "line": 45
+  },
+  {
+    "name": "linkage:my_requests",
+    "pattern": "requests/mine/",
+    "view": "linkage.views.my_requests",
+    "source": "linkage/views.py",
+    "line": 58
+  },
+  {
+    "name": "linkage:request_detail",
+    "pattern": "requests/<int:pk>/",
+    "view": "linkage.views.request_detail",
+    "source": "linkage/views.py",
+    "line": 66
+  },
+  {
+    "name": "linkage:propose",
+    "pattern": "requests/<int:pk>/propose/",
+    "view": "linkage.views.propose",
+    "source": "linkage/views.py",
+    "line": 86
+  },
+  {
+    "name": "linkage:close_request",
+    "pattern": "requests/<int:pk>/close/",
+    "view": "linkage.views.close_request",
+    "source": "linkage/views.py",
+    "line": 147
+  },
+  {
+    "name": "linkage:my_proposals",
+    "pattern": "proposals/mine/",
+    "view": "linkage.views.my_proposals",
+    "source": "linkage/views.py",
+    "line": 162
+  },
+  {
+    "name": "linkage:accept_proposal",
+    "pattern": "proposals/<int:pk>/accept/",
+    "view": "linkage.views.accept_proposal",
+    "source": "linkage/views.py",
+    "line": 111
+  },
+  {
+    "name": "linkage:reject_proposal",
+    "pattern": "proposals/<int:pk>/reject/",
+    "view": "linkage.views.reject_proposal",
+    "source": "linkage/views.py",
+    "line": 134
+  }
+]

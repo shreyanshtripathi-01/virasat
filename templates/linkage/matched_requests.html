@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Matches for you{% endblock %}
+{% block content %}
+<div class="container-xl"><header class="page-header"><div><p class="eyebrow">Based on your craft and location</p><h1>Matches for you</h1><p class="text-muted">Category and craft each contribute two points; a state match adds one.</p></div><a class="btn btn-outline-brand" href="{% url 'linkage:request_list' %}">All open requests</a></header><div class="request-grid">{% for buyer_request in requests %}{% include "partials/_request_card.html" with buyer_request=buyer_request %}{% empty %}{% include "partials/_empty_state.html" with title="No matches yet" message="Matches use the crafts and categories in your listings, plus your profile state. You can still browse every open brief." action_url="/requests/" action_label="Browse requests" %}{% endfor %}</div></div>
+{% endblock %}

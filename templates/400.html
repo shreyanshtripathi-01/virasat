@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}Check your request{% endblock %}
+{% block content %}<div class="container-xl content-narrow"><div class="surface-card empty-state error-state">{% include "partials/_error_art.html" %}<span class="eyebrow">400 · Check your request</span><h1>{% if reason %}{{ reason }}{% else %}Please check what you entered.{% endif %}</h1><p>Try again or return to the home page.</p><a class="btn btn-brand" href="/">Go home</a></div></div>{% endblock %}

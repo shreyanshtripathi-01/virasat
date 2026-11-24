@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" role="img" aria-labelledby="placeholder-title placeholder-desc">
+  <title id="placeholder-title">Virasat handmade craft placeholder</title>
+  <desc id="placeholder-desc">An illustrated arch with a lotus rosette, two fish and geometric borders.</desc>
+  <rect width="800" height="1000" fill="#FBF5E9"/>
+  <rect x="24" y="24" width="752" height="952" rx="30" fill="#F6EAD6" stroke="#D9C39B" stroke-width="3"/>
+  <g stroke="#C98A2E" stroke-width="1" opacity=".22">
+    <path d="M82 34v932M142 34v932M202 34v932M262 34v932M322 34v932M382 34v932M442 34v932M502 34v932M562 34v932M622 34v932M682 34v932M742 34v932"/>
+  </g>
+  <path d="M176 774V404c0-124 100-206 224-206s224 82 224 206v370Z" fill="#F2E0B8" stroke="#2C241E" stroke-width="9"/>
+  <path d="M196 754V410c0-108 90-188 204-188s204 80 204 188v344Z" fill="none" stroke="#A93B2F" stroke-width="4"/>
+  <g fill="#A93B2F" stroke="#2C241E" stroke-width="4">
+    <ellipse cx="400" cy="416" rx="34" ry="84"/>
+    <ellipse cx="400" cy="416" rx="34" ry="84" transform="rotate(45 400 500)"/>
+    <ellipse cx="400" cy="416" rx="34" ry="84" transform="rotate(90 400 500)"/>
+    <ellipse cx="400" cy="416" rx="34" ry="84" transform="rotate(135 400 500)"/>
+    <ellipse cx="400" cy="416" rx="34" ry="84" transform="rotate(180 400 500)"/>
+    <ellipse cx="400" cy="416" rx="34" ry="84" transform="rotate(225 400 500)"/>
+    <ellipse cx="400" cy="416" rx="34" ry="84" transform="rotate(270 400 500)"/>
+    <ellipse cx="400" cy="416" rx="34" ry="84" transform="rotate(315 400 500)"/>
+  </g>
+  <g fill="#C98A2E" stroke="#2C241E" stroke-width="3">
+    <ellipse cx="400" cy="442" rx="22" ry="55"/>
+    <ellipse cx="400" cy="442" rx="22" ry="55" transform="rotate(45 400 500)"/>
+    <ellipse cx="400" cy="442" rx="22" ry="55" transform="rotate(90 400 500)"/>
+    <ellipse cx="400" cy="442" rx="22" ry="55" transform="rotate(135 400 500)"/>
+    <ellipse cx="400" cy="442" rx="22" ry="55" transform="rotate(180 400 500)"/>
+    <ellipse cx="400" cy="442" rx="22" ry="55" transform="rotate(225 400 500)"/>
+    <ellipse cx="400" cy="442" rx="22" ry="55" transform="rotate(270 400 500)"/>
+    <ellipse cx="400" cy="442" rx="22" ry="55" transform="rotate(315 400 500)"/>
+  </g>
+  <circle cx="400" cy="500" r="42" fill="#3E6B4A" stroke="#2C241E" stroke-width="4"/>
+  <circle cx="400" cy="500" r="18" fill="#FBF5E9"/>
+  <g fill="#FBF5E9" stroke="#2C241E" stroke-width="4">
+    <path d="M216 640c34-46 91-50 126-8-20 42-88 52-126 8Z"/>
+    <path d="M342 632l46-34-10 58Z"/>
+  </g>
+  <circle cx="252" cy="636" r="6" fill="#2C241E"/>
+  <path d="M262 646c16 10 36 9 50 0" fill="none" stroke="#A93B2F" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#FBF5E9" stroke="#2C241E" stroke-width="4" transform="translate(800 0) scale(-1 1)">
+    <path d="M216 640c34-46 91-50 126-8-20 42-88 52-126 8Z"/>
+    <path d="M342 632l46-34-10 58Z"/>
+  </g>
+  <circle cx="548" cy="636" r="6" fill="#2C241E"/>
+  <path d="M538 646c-16 10-36 9-50 0" fill="none" stroke="#A93B2F" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#C98A2E">
+    <path d="M400 270l14 14-14 14-14-14Z"/>
+    <circle cx="268" cy="300" r="5"/>
+    <circle cx="532" cy="300" r="5"/>
+    <circle cx="220" cy="726" r="5"/>
+    <circle cx="580" cy="726" r="5"/>
+    <circle cx="306" cy="566" r="5"/>
+    <circle cx="494" cy="566" r="5"/>
+  </g>
+  <path d="M288 774h224" stroke="#2C241E" stroke-width="5" stroke-linecap="round"/>
+  <text x="400" y="858" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="58" letter-spacing="5" fill="#1F2A56">Virasat</text>
+  <path d="M310 890h180" stroke="#A93B2F" stroke-width="4" stroke-linecap="round"/>
+  <g fill="none" stroke="#A93B2F" stroke-width="3">
+    <circle cx="400" cy="918" r="7"/>
+    <path d="M370 918h-24M430 918h24"/>
+  </g>
+</svg>

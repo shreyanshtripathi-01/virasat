@@ -1,0 +1,23 @@
+<div class="field-group">
+  {% if field.field.widget.input_type == "checkbox" %}
+    <div class="form-check{% if field.name == 'verified_only' %} form-switch{% endif %}">
+      {{ field }}
+      <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    </div>
+  {% else %}
+    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span class="visually-hidden"> (required)</span>{% endif %}</label>
+    {{ field }}
+  {% endif %}
+  {% if field.name == "password1" %}
+    <details class="password-tips" id="password-tips">
+      <summary>Password tips</summary>
+      <p>Use at least 8 characters. Avoid common passwords, repeated characters and personal details.</p>
+    </details>
+  {% endif %}
+  {% if field.help_text %}<div class="form-text" id="id_{{ field.name }}_helptext">{{ field.help_text }}</div>{% endif %}
+  <div id="id_{{ field.name }}_error">
+    {% for error in field.errors %}
+      <div class="field-error" role="alert"><i class="bi bi-exclamation-circle" aria-hidden="true"></i><span>{{ error }}</span></div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,48 @@
+{% load humanize static %}
+<article class="product-tile">
+  <div class="product-media">
+    <a href="{{ product.get_absolute_url }}" class="product-image-link" aria-label="View {{ product.title }}">
+      {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.title }} by {{ product.artisan.get_full_name|default:product.artisan.username }}" width="600" height="750" loading="lazy">{% else %}<img src="{% static 'img/placeholder.svg' %}" alt="Virasat placeholder for {{ product.title }}" width="600" height="750" loading="lazy">{% endif %}
+    </a>
+    {% if product.status == "published" %}
+      {% if request.user.is_authenticated and request.user.profile.is_buyer %}
+        <form class="wishlist-form" method="post" action="{% url 'catalog:wishlist_toggle' product.pk %}">
+          {% csrf_token %}
+          <button class="wishlist-button" type="submit" aria-label="Add or remove {{ product.title }} from your wishlist"><i class="bi bi-heart" aria-hidden="true"></i></button>
+        </form>
+      {% elif not request.user.is_authenticated %}
+        <a class="wishlist-form wishlist-button" href="{% url 'accounts:login' %}?next={{ product.get_absolute_url|urlencode }}" aria-label="Sign in to save {{ product.title }}"><i class="bi bi-heart" aria-hidden="true"></i></a>
+      {% endif %}
+    {% endif %}
+  </div>
+  <div class="product-tile-body">
+    <span class="craft-chip">{{ product.craft.name }}</span>
+    <p class="product-artisan">
+      <a href="{% url 'accounts:artisan_detail' product.artisan.pk %}">{{ product.artisan.get_full_name|default:product.artisan.username }}</a>
+      {% if product.artisan.profile.is_verified %}<i class="bi bi-patch-check-fill" role="img" aria-label="Verified artisan"></i>{% endif %}
+    </p>
+    <h3><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h3>
+    {% with rating=product.average_rating count=product.reviews.all|length %}
+      {% if count %}
+        <div class="product-rating">
+          {% include "partials/_rating_stars.html" with rating=rating %}
+          <span>({{ count }})</span>
+        </div>
+      {% endif %}
+    {% endwith %}
+    <p class="product-price">₹{{ product.price|floatformat:2|intcomma }}</p>
+    {% if product.status == "published" %}
+      {% if product.in_stock and request.user.is_authenticated and request.user.profile.is_buyer %}
+        <div class="product-actions">
+          <form method="post" action="{% url 'orders:cart_add' product.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="quantity" value="1">
+            <button class="btn btn-brand btn-sm" type="submit"><i class="bi bi-bag-plus" aria-hidden="true"></i> Add to cart</button>
+          </form>
+        </div>
+      {% elif not product.in_stock %}
+        <div class="product-actions"><span class="status-badge status-badge--neutral">Sold out</span></div>
+      {% endif %}
+    {% endif %}
+  </div>
+</article>

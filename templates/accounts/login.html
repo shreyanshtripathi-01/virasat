@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<div class="container-xl auth-layout auth-layout--v2">
+  {% include "partials/_auth_story.html" with auth_eyebrow="Good to see you again" auth_title="Your world of" auth_highlight="handmade." auth_lead="Come back to the people, pieces and craft traditions you care about." auth_note="Every piece has a maker, a story and a fair price." %}
+  <section class="form-card auth-form-card" aria-labelledby="login-form-title">
+    <p class="card-eyebrow">Your account</p>
+    <h2 id="login-form-title">Welcome back</h2>
+    <p class="auth-form-lead">Sign in to see saved pieces, orders and custom requests.</p>
+    <form method="post" action="{% url 'accounts:login' %}">
+      {% csrf_token %}
+      {% if next != "/" %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      {% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+      {% include "partials/_form_field.html" with field=form.username %}
+      {% include "partials/_form_field.html" with field=form.password %}
+      {% include "partials/_form_field.html" with field=form.remember_me %}
+      <button class="btn btn-brand w-100" type="submit">Sign in <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
+    </form>
+    <p class="form-footnote">New to Virasat? <a href="{% url 'accounts:register' %}">Create an account</a></p>
+  </section>
+</div>
+{% endblock %}

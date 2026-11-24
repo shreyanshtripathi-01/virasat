@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}My requests{% endblock %}
+{% block content %}
+<div class="container-xl"><div class="section-header"><div><p class="eyebrow">Your ideas</p><h1>My requests</h1><p class="text-muted">Review your briefs and the offers sent by artisans.</p></div><a class="btn btn-brand" href="{% url 'linkage:request_new' %}">New request</a></div><div class="request-grid">{% for buyer_request in requests %}{% include "partials/_request_card.html" with buyer_request=buyer_request %}{% empty %}{% include "partials/_empty_state.html" with title="Have something in mind?" message="Share the quantity, budget and date. Interested artisans can send an offer for your brief." action_url="/requests/new/" action_label="Post your first request" %}{% endfor %}</div></div>
+{% endblock %}

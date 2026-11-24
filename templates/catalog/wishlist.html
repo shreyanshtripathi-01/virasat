@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Saved products{% endblock %}
+{% block content %}
+<div class="container-xl"><header class="page-header"><div><p class="eyebrow">Keep what you like close</p><h1>Saved products</h1><p class="text-muted">A little collection of pieces to come back to. Tap the heart to remove one.</p></div><a class="btn btn-outline-brand" href="{% url 'catalog:product_list' %}">Keep exploring</a></header>{% if entries %}<div class="product-grid">{% for entry in entries %}{% include "partials/_product_card.html" with product=entry.product %}{% endfor %}</div>{% else %}{% include "partials/_empty_state.html" with title="A place for your favourites" message="Save a piece with the heart on any product card. It will be waiting here when you come back." action_url="/products/" action_label="Explore pieces" %}{% endif %}</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% if action_url %}
+  <a class="stat-card stat-card--{{ tone|default:'info' }} card-lift" href="{{ action_url }}">
+    {% if icon %}<span class="stat-card__icon" aria-hidden="true"><i class="bi {{ icon }}"></i></span>{% endif %}
+    <span class="stat-card__value">{{ value }}{% if suffix %}<small>{{ suffix }}</small>{% endif %}</span>
+    <span class="stat-card__label">{{ label }}</span>
+    {% if sublabel %}<span class="stat-card__meta">{{ sublabel }}</span>{% endif %}
+  </a>
+{% else %}
+  <div class="stat-card stat-card--{{ tone|default:'info' }}">
+    {% if icon %}<span class="stat-card__icon" aria-hidden="true"><i class="bi {{ icon }}"></i></span>{% endif %}
+    <span class="stat-card__value">{{ value }}{% if suffix %}<small>{{ suffix }}</small>{% endif %}</span>
+    <span class="stat-card__label">{{ label }}</span>
+    {% if sublabel %}<span class="stat-card__meta">{{ sublabel }}</span>{% endif %}
+  </div>
+{% endif %}

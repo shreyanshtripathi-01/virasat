@@ -1,0 +1,16 @@
+{% if messages %}
+  <div class="container-xl messages-container">
+    <div class="toast-stack" aria-live="polite" aria-atomic="true">
+      {% for message in messages %}
+        <div class="alert toast-alert alert-dismissible fade show {% if 'error' in message.tags %}alert-danger{% elif 'success' in message.tags %}alert-success{% elif 'warning' in message.tags %}alert-warning{% else %}alert-info{% endif %}" role="{% if 'error' in message.tags or 'warning' in message.tags %}alert{% else %}status{% endif %}">
+          {% if 'error' in message.tags %}<i class="bi bi-exclamation-octagon" aria-hidden="true"></i>
+          {% elif 'success' in message.tags %}<i class="bi bi-check-circle" aria-hidden="true"></i>
+          {% elif 'warning' in message.tags %}<i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+          {% else %}<i class="bi bi-info-circle" aria-hidden="true"></i>{% endif %}
+          <span>{{ message }}</span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

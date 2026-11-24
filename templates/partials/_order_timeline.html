@@ -1,0 +1,10 @@
+{% if item.status == "cancelled" %}
+  <p class="cancelled-note"><i class="bi bi-x-circle" aria-hidden="true"></i> Cancelled. This item will not be delivered.</p>
+{% else %}
+  <ol class="order-timeline" aria-label="Delivery progress: {{ item.get_status_display }}">
+    <li class="is-complete"><span aria-hidden="true"><i class="bi bi-check-lg"></i></span>Placed</li>
+    <li class="{% if item.status == 'confirmed' or item.status == 'shipped' or item.status == 'delivered' %}is-complete{% endif %}"><span aria-hidden="true">2</span>Confirmed</li>
+    <li class="{% if item.status == 'shipped' or item.status == 'delivered' %}is-complete{% endif %}"><span aria-hidden="true">3</span>Shipped</li>
+    <li class="{% if item.status == 'delivered' %}is-complete{% endif %}"><span aria-hidden="true">4</span>Delivered</li>
+  </ol>
+{% endif %}

@@ -1,0 +1,249 @@
+{
+  "images": [
+    {
+      "file": "01_system_context.png",
+      "width": 3644,
+      "height": 1473,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "02_dfd_level0.png",
+      "width": 3525,
+      "height": 2012,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "03_dfd_level1.png",
+      "width": 3504,
+      "height": 3772,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "04a_use_cases_buyers.png",
+      "width": 2624,
+      "height": 3474,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "04b_use_cases_artisans_staff.png",
+      "width": 2957,
+      "height": 3607,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "05_er_all_models.png",
+      "width": 3504,
+      "height": 4364,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "05a_er_marketplace.png",
+      "width": 2975,
+      "height": 2933,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "05b_er_framework.png",
+      "width": 2823,
+      "height": 1447,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "06_ai_sequence.png",
+      "width": 3627,
+      "height": 3662,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/01-home.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/02-browse.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/03-product-detail.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/04-register.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/05-login.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/06-artisan-dashboard.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/07-ai-describe.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/08-ai-review.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/09-cart.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/10-checkout.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/11-order-detail.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/12-requests.png",
+      "width": 2732,
+      "height": 2000,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/13-mobile-home.png",
+      "width": 780,
+      "height": 1688,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/14-mobile-browse.png",
+      "width": 780,
+      "height": 1688,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    },
+    {
+      "file": "screenshots/15-mobile-checkout.png",
+      "width": 780,
+      "height": 1688,
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "format": "PNG"
+    }
+  ],
+  "concrete_models": 16,
+  "project_models": 10,
+  "named_app_routes": 52,
+  "screenshots": 15,
+  "errors": []
+}

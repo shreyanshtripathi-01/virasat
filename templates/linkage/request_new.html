@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Post a request{% endblock %}
+{% block content %}
+<div class="container-xl content-narrow"><p class="eyebrow">Tell artisans what you need</p><h1>Post a request</h1><p>Share your idea, budget and date. An artisan can send you an offer.</p><section class="surface-card mt-4"><form method="post" action="{% url 'linkage:request_new' %}">{% csrf_token %}{% for error in form.non_field_errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}{% for field in form %}{% include "partials/_form_field.html" with field=field %}{% endfor %}<button class="btn btn-brand" type="submit">Post request</button></form></section></div>
+{% endblock %}

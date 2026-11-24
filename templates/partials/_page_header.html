@@ -1,0 +1,13 @@
+<header class="page-header">
+  <div class="page-header__copy">
+    {% if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{% endif %}
+    <h1>{{ title }}</h1>
+    {% if description %}<p class="lead">{{ description }}</p>{% endif %}
+  </div>
+  {% if action_url or secondary_url %}
+    <div class="page-header__actions">
+      {% if secondary_url %}<a class="btn btn-outline-brand" href="{{ secondary_url }}">{{ secondary_label }}</a>{% endif %}
+      {% if action_url %}<a class="btn btn-brand" href="{{ action_url }}">{% if action_icon %}<i class="bi {{ action_icon }}" aria-hidden="true"></i>{% endif %}{{ action_label }}</a>{% endif %}
+    </div>
+  {% endif %}
+</header>

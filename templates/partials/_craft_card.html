@@ -1,0 +1,14 @@
+{% load static %}
+<a class="craft-card card-lift" href="{% url 'catalog:craft_detail' craft.slug %}">
+  <span class="craft-card__media">
+    {% if craft.image %}
+      <img src="{{ craft.image.url }}" alt="{{ craft.name }} craft" width="400" height="400" loading="lazy">
+    {% else %}
+      <span class="craft-card__fallback" aria-hidden="true">{{ craft.name|first }}</span>
+    {% endif %}
+  </span>
+  <span class="craft-card__body">
+    <h3>{{ craft.name }}</h3>
+    <p>{{ craft.state }} · {{ craft.published_count|default:product_count|default:craft.products.count }} piece{{ craft.published_count|default:product_count|default:craft.products.count|pluralize }}</p>
+  </span>
+</a>

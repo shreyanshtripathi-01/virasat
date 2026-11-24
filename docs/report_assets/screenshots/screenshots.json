@@ -1,0 +1,167 @@
+[
+  {
+    "file": "01-home.png",
+    "route": "/",
+    "role": "Visitor",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "02-browse.png",
+    "route": "/products/",
+    "role": "Visitor",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "03-product-detail.png",
+    "route": "/product/1/madhubani-lotus-wall-painting/",
+    "role": "Visitor",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "04-register.png",
+    "route": "/accounts/register/",
+    "role": "Visitor",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "05-login.png",
+    "route": "/accounts/login/",
+    "role": "Visitor",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "06-artisan-dashboard.png",
+    "route": "/dashboard/",
+    "role": "Artisan",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "07-ai-describe.png",
+    "route": "/dashboard/products/new/",
+    "role": "Artisan",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "08-ai-review.png",
+    "route": "/dashboard/products/1/edit/",
+    "role": "Artisan",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 650
+  },
+  {
+    "file": "09-cart.png",
+    "route": "/cart/",
+    "role": "Buyer",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "10-checkout.png",
+    "route": "/checkout/",
+    "role": "Buyer",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "11-order-detail.png",
+    "route": "/orders/VR000001/",
+    "role": "Buyer",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "12-requests.png",
+    "route": "/requests/",
+    "role": "Buyer",
+    "viewport": {
+      "width": 1366,
+      "height": 1000
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "13-mobile-home.png",
+    "route": "/",
+    "role": "Visitor",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "14-mobile-browse.png",
+    "route": "/products/",
+    "role": "Visitor",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "scale": 2,
+    "scrollY": 0
+  },
+  {
+    "file": "15-mobile-checkout.png",
+    "route": "/checkout/",
+    "role": "Buyer",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "scale": 2,
+    "scrollY": 0
+  }
+]

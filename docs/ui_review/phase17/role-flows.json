@@ -1,0 +1,11 @@
+{
+  "database": "Disposable review_server.py copy",
+  "results": [
+    "Artisan: uploaded, generated offline draft, saved, reviewed and published.",
+    "Buyer: saved piece, session cart, demo checkout, invoice and cancellation.",
+    "Artisan and buyer: confirmed, shipped, delivered and reviewed the order.",
+    "Market linkage: buyer request, artisan proposal and owner acceptance.",
+    "Verifier: approved a newly registered pending artisan, verified badge confirmed."
+  ],
+  "errors": []
+}

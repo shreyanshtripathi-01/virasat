@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}Buyer requests{% endblock %}
+{% block content %}
+<div class="container-xl"><div class="section-header"><div><p class="eyebrow">Find a connection</p><h1>Buyer requests</h1><p>See what people are looking for. Offer to make a piece if it fits your work.</p></div>{% if request.user.profile.is_buyer %}<a class="btn btn-brand" href="{% url 'linkage:request_new' %}">Post a request</a>{% elif request.user.profile.is_artisan %}<a class="btn btn-outline-brand" href="{% url 'linkage:matched_requests' %}">Matches for you</a>{% endif %}</div>
+  <div class="request-grid">{% for buyer_request in requests %}{% include "partials/_request_card.html" with buyer_request=buyer_request %}{% empty %}{% include "partials/_empty_state.html" with title="No open briefs right now" message="Buyers can post a quantity, budget and date. Artisans can return here to find the next opportunity." action_url="/products/" action_label="Explore handmade work" %}{% endfor %}</div>
+</div>
+{% endblock %}

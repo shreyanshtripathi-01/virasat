@@ -1,0 +1,18 @@
+{% load humanize %}
+<article class="surface-card request-card">
+  <div class="request-card__badges">
+    {% include "partials/_status_badge.html" with status=buyer_request.status label=buyer_request.get_status_display %}
+    {% if buyer_request.score >= 4 %}<span class="match-chip">Strong match</span>{% elif buyer_request.score >= 2 %}<span class="match-chip">Good match</span>{% elif buyer_request.score %}<span class="muted-chip">Location match</span>{% endif %}
+    <span class="days-badge"><i class="bi bi-calendar3" aria-hidden="true"></i> {% if buyer_request.days_left < 0 %}Date passed{% elif buyer_request.days_left == 0 %}Needed today{% else %}{{ buyer_request.days_left }} days left{% endif %}</span>
+  </div>
+  <p class="eyebrow">{{ buyer_request.category.name }}{% if buyer_request.craft %} · {{ buyer_request.craft.name }}{% endif %}</p>
+  <h2 class="card-heading"><a href="{% url 'linkage:request_detail' buyer_request.pk %}">{{ buyer_request.title }}</a></h2>
+  <p class="request-card__description">{{ buyer_request.description|truncatewords:24 }}</p>
+  <dl class="request-facts">
+    <div><dt>Quantity</dt><dd>{{ buyer_request.quantity }} pieces</dd></div>
+    <div><dt>Budget per piece</dt><dd>₹{{ buyer_request.budget_min|floatformat:0|intcomma }} to ₹{{ buyer_request.budget_max|floatformat:0|intcomma }}</dd></div>
+    <div><dt>Needed by</dt><dd>{{ buyer_request.needed_by|date:"d M Y" }}</dd></div>
+    <div><dt>Preferred state</dt><dd>{{ buyer_request.preferred_state|default:"Any state" }}</dd></div>
+  </dl>
+  <a class="btn btn-outline-brand" href="{% url 'linkage:request_detail' buyer_request.pk %}">View request <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+</article>

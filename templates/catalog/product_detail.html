@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load humanize static %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block body_class %}detail-page{% endblock %}
+{% block content %}
+{% url 'catalog:product_list' as product_list_url %}
+<div class="container-xl">
+  {% include "partials/_breadcrumbs.html" with parent_url=product_list_url parent_label="Products" current=product.title %}
+
+  <div class="detail-layout">
+    <div class="detail-gallery">
+      <div class="detail-image">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.title }} by {{ product.artisan.get_full_name|default:product.artisan.username }}" width="1200" height="1500" fetchpriority="high">
+        {% else %}
+          <img src="{% static 'img/placeholder.svg' %}" alt="Virasat placeholder for {{ product.title }}" width="1200" height="1500">
+        {% endif %}
+      </div>
+      <ul class="detail-assurance" aria-label="Purchase assurances">
+        <li><i class="bi bi-hand-index-thumb" aria-hidden="true"></i><span><strong>Handmade</strong>Small differences are part of the work.</span></li>
+        <li><i class="bi bi-cash-coin" aria-hidden="true"></i><span><strong>Fair pay</strong>{{ artisan_percent|floatformat:0 }}% to the artisan, {{ platform_fee_percent|floatformat:0 }}% platform fee.</span></li>
+        <li><i class="bi bi-truck" aria-hidden="true"></i><span><strong>Delivery</strong>Cash on delivery is available.</span></li>
+      </ul>
+    </div>
+
+    <article class="detail-buybox" aria-labelledby="product-title">
+      <p class="detail-craft"><a href="{% url 'catalog:craft_detail' product.craft.slug %}">{{ product.craft.name }}</a><span aria-hidden="true">·</span><span>{{ product.craft.state }}</span></p>
+      <h1 id="product-title">{{ product.title }}</h1>
+      <div class="detail-meta">
+        {% with review_count=reviews|length %}
+          {% if review_count %}
+            {% include "partials/_rating_stars.html" with rating=product.average_rating %}
+            <a class="detail-meta__reviews" href="#reviews-tab">{{ review_count }} review{{ review_count|pluralize }}</a>
+          {% else %}
+            <span class="muted-chip">New arrival</span>
+          {% endif %}
+        {% endwith %}
+        {% if product.artisan.profile.is_verified %}
+          <span class="verified-inline"><i class="bi bi-patch-check-fill" aria-hidden="true"></i> Verified artisan</span>
+        {% endif %}
+      </div>
+
+      <div class="detail-price-row">
+        <p class="detail-price">₹{{ product.price|floatformat:2|intcomma }}</p>
+        {% if product.in_stock %}
+          <p class="stock-label"><i class="bi bi-check-circle" aria-hidden="true"></i> {{ product.stock }} in stock</p>
+        {% else %}
+          <p class="stock-label stock-label--out">Sold out</p>
+        {% endif %}
+      </div>
+
+      <div class="detail-description">
+        {% if request.COOKIES.lang == "hi" and product.hindi_description %}{{ product.hindi_description|linebreaks }}{% else %}{{ product.description|linebreaks }}{% endif %}
+      </div>
+      {% if product.ai_source != "manual" %}
+        <p class="ai-note"><i class="bi bi-stars" aria-hidden="true"></i><span>Description drafted with AI and reviewed by the artisan.</span></p>
+      {% endif %}
+
+      <div class="detail-actions">
+        {% include "partials/_buy_form.html" with product=product quantity_id="quantity-desktop" %}
+        {% if request.user.is_authenticated and request.user.profile.is_buyer %}
+          <form class="detail-wishlist" method="post" action="{% url 'catalog:wishlist_toggle' product.pk %}">
+            {% csrf_token %}
+            <button class="btn btn-outline-brand" type="submit" aria-label="{% if is_wishlisted %}Remove {{ product.title }} from saved pieces{% else %}Save {{ product.title }} for later{% endif %}">
+              <i class="bi {% if is_wishlisted %}bi-heart-fill{% else %}bi-heart{% endif %}" aria-hidden="true"></i>
+              {% if is_wishlisted %}Saved{% else %}Save for later{% endif %}
+            </button>
+          </form>
+        {% elif not request.user.is_authenticated %}
+          <a class="btn btn-outline-brand" href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}"><i class="bi bi-heart" aria-hidden="true"></i> Save for later</a>
+        {% endif %}
+      </div>
+
+      <div class="maker-card-v2">
+        <div class="maker-card__identity">
+          {% if product.artisan.profile.avatar %}
+            <img class="maker-card__avatar" src="{{ product.artisan.profile.avatar.url }}" alt="Portrait of {{ product.artisan.get_full_name|default:product.artisan.username }}" width="64" height="64" loading="lazy">
+          {% else %}
+            <span class="maker-card__initial" aria-hidden="true">{{ product.artisan.username|first|upper }}</span>
+          {% endif %}
+          <div>
+            <span class="eyebrow">Made by</span>
+            <strong><a href="{% url 'accounts:artisan_detail' product.artisan.pk %}">{{ product.artisan.get_full_name|default:product.artisan.username }}</a>{% if product.artisan.profile.is_verified %} <i class="bi bi-patch-check-fill" role="img" aria-label="Verified artisan"></i>{% endif %}</strong>
+            <span>{{ product.artisan.profile.craft_speciality|default:"Handmade crafts" }} · {{ product.artisan.profile.city }}, {{ product.artisan.profile.state }}</span>
+          </div>
+        </div>
+        {% if product.artisan.profile.bio %}<p class="maker-card__bio">{{ product.artisan.profile.bio|truncatechars:160 }}</p>{% endif %}
+        <a class="maker-card__link" href="{% url 'accounts:artisan_detail' product.artisan.pk %}">View all pieces by {{ product.artisan.first_name|default:product.artisan.username }} <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </article>
+  </div>
+
+  <section class="detail-info" aria-label="Product information">
+    <div class="detail-tabs" role="tablist" aria-label="Product details">
+      <button class="detail-tab active" id="craft-story-tab" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#craft-story" aria-controls="craft-story" aria-selected="true">Craft story</button>
+      <button class="detail-tab" id="materials-tab" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#materials" aria-controls="materials" aria-selected="false">Materials and technique</button>
+      <button class="detail-tab" id="care-tab" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#care" aria-controls="care" aria-selected="false">Care</button>
+      <button class="detail-tab" id="reviews-tab" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#reviews" aria-controls="reviews" aria-selected="false">Reviews{% if reviews %} <span class="detail-tab__count">{{ reviews|length }}</span>{% endif %}</button>
+    </div>
+    <div class="tab-content detail-tab-content">
+      <div class="tab-pane fade show active" id="craft-story" role="tabpanel" aria-labelledby="craft-story-tab" tabindex="0">
+        <div class="story-panel">
+          <div>
+            <p class="eyebrow">The tradition behind the piece</p>
+            <h2>{{ product.craft.name }}</h2>
+            <div class="story-copy">{{ product.heritage_story|default:product.craft.description|linebreaks }}</div>
+          </div>
+          <div class="story-panel__aside">
+            <span class="story-stat"><strong>{{ product.craft.state }}</strong><span>Region</span></span>
+            <span class="story-stat"><strong>{% if product.craft.gi_tagged %}GI tagged{% else %}Living craft{% endif %}</strong><span>Heritage status</span></span>
+            <a class="btn btn-outline-brand" href="{% url 'catalog:craft_detail' product.craft.slug %}">Explore {{ product.craft.name }}</a>
+          </div>
+        </div>
+        {% if product.tags %}<p class="detail-tags"><strong>Tags:</strong> {{ product.tags }}</p>{% endif %}
+      </div>
+      <div class="tab-pane fade" id="materials" role="tabpanel" aria-labelledby="materials-tab" tabindex="0">
+        <dl class="detail-specs">
+          <div><dt>Materials</dt><dd>{{ product.materials }}</dd></div>
+          <div><dt>Technique</dt><dd>{{ product.technique }}</dd></div>
+          <div><dt>Made in</dt><dd>{{ product.artisan.profile.city }}, {{ product.artisan.profile.state }}</dd></div>
+          <div><dt>Artisan</dt><dd><a href="{% url 'accounts:artisan_detail' product.artisan.pk %}">{{ product.artisan.get_full_name|default:product.artisan.username }}</a></dd></div>
+        </dl>
+      </div>
+      <div class="tab-pane fade" id="care" role="tabpanel" aria-labelledby="care-tab" tabindex="0">
+        <h2>Care for your piece</h2>
+        <p>{{ product.care_instructions|default:"Handle with care. Ask the artisan about care for the specific materials."|linebreaksbr }}</p>
+      </div>
+      <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" tabindex="0">
+        {% with review_count=reviews|length %}
+          <div class="review-summary">
+            <div class="review-summary__score"><strong>{{ product.average_rating|floatformat:1 }}</strong><span>out of 5</span></div>
+            <div>
+              {% include "partials/_rating_stars.html" with rating=product.average_rating %}
+              <p>{{ review_count }} buyer review{{ review_count|pluralize }} for this piece.</p>
+            </div>
+          </div>
+        {% endwith %}
+        <div class="review-list">
+          {% for review in reviews %}
+            <article class="review-item">
+              <div class="review-item__head">
+                <strong>{{ review.buyer.get_full_name|default:review.buyer.username }}</strong>
+                <span>{{ review.created_at|date:"d M Y" }}</span>
+              </div>
+              {% include "partials/_rating_stars.html" with rating=review.rating %}
+              {% if review.comment %}<p>{{ review.comment }}</p>{% endif %}
+            </article>
+          {% empty %}
+            <div class="review-empty">
+              <i class="bi bi-chat-heart" aria-hidden="true"></i>
+              <p>No reviews yet. Reviews come from buyers after a delivered order.</p>
+            </div>
+          {% endfor %}
+        </div>
+        {% if can_review %}
+          <div class="review-form">
+            <h3 class="card-heading">Share your experience</h3>
+            <form method="post" action="{% url 'catalog:review' product.pk %}">
+              {% csrf_token %}
+              {% for field in review_form %}{% include "partials/_form_field.html" with field=field %}{% endfor %}
+              <button class="btn btn-brand" type="submit">Post review</button>
+            </form>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  {% if related_products %}
+    <section class="home-section" aria-labelledby="related-heading">
+      <div class="section-header"><div><h2 id="related-heading">You may also like</h2></div><a href="{% url 'catalog:product_list' %}">Browse all pieces <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div>
+      <div class="product-grid">{% for product in related_products %}{% include "partials/_product_card.html" with product=product %}{% endfor %}</div>
+    </section>
+  {% endif %}
+</div>
+
+{% if product.status == "published" and not request.user.is_authenticated or product.status == "published" and request.user.profile.is_buyer %}
+  <div class="mobile-buy-bar">
+    <div class="mobile-buy-bar__price"><span>Price</span><strong>₹{{ product.price|floatformat:2|intcomma }}</strong></div>
+    {% include "partials/_buy_form.html" with product=product quantity_id="quantity-mobile" compact=True %}
+  </div>
+{% endif %}
+{% endblock %}

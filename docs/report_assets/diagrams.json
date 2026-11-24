@@ -1,0 +1,92 @@
+[
+  {
+    "file": "01_system_context.png",
+    "title": "01_system_context",
+    "width": 3644,
+    "height": 1473,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "02_dfd_level0.png",
+    "title": "02_dfd_level0",
+    "width": 3525,
+    "height": 2012,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "03_dfd_level1.png",
+    "title": "03_dfd_level1",
+    "width": 3504,
+    "height": 3772,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "04a_use_cases_buyers.png",
+    "title": "04a_use_cases_buyers",
+    "width": 2624,
+    "height": 3474,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "04b_use_cases_artisans_staff.png",
+    "title": "04b_use_cases_artisans_staff",
+    "width": 2957,
+    "height": 3607,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "05_er_all_models.png",
+    "title": "05_er_all_models",
+    "width": 3504,
+    "height": 4364,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "05a_er_marketplace.png",
+    "title": "05a_er_marketplace",
+    "width": 2975,
+    "height": 2933,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "05b_er_framework.png",
+    "title": "05b_er_framework",
+    "width": 2823,
+    "height": 1447,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  },
+  {
+    "file": "06_ai_sequence.png",
+    "title": "06_ai_sequence",
+    "width": 3627,
+    "height": 3662,
+    "dpi": [
+      299.9994,
+      299.9994
+    ]
+  }
+]

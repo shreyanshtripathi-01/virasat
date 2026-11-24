@@ -1,0 +1,22 @@
+{% if product.status == "published" %}
+  {% if request.user.is_authenticated and request.user.profile.is_buyer %}
+    {% if product.in_stock %}
+      <form class="buy-form{% if compact %} buy-form--compact{% endif %}" method="post" action="{% url 'orders:cart_add' product.pk %}">
+        {% csrf_token %}
+        <div class="buy-form__field">
+          <label for="{{ quantity_id }}">Quantity</label>
+          <select class="form-select quantity-input" id="{{ quantity_id }}" name="quantity" aria-label="Quantity">
+            {% for quantity in quantity_choices %}<option value="{{ quantity }}">{{ quantity }}</option>{% endfor %}
+          </select>
+        </div>
+        <button class="btn btn-brand buy-form__button" type="submit"><i class="bi bi-bag-plus" aria-hidden="true"></i> Add to cart</button>
+      </form>
+    {% else %}
+      <button class="btn btn-brand buy-form__button" type="button" disabled>Sold out</button>
+    {% endif %}
+  {% elif not request.user.is_authenticated %}
+    <a class="btn btn-brand buy-form__button" href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}">Sign in to buy <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+  {% else %}
+    <p class="form-text mb-0">Only buyer accounts can place orders.</p>
+  {% endif %}
+{% endif %}

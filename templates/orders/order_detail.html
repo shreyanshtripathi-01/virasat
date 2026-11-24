@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}{{ order.order_number }}{% endblock %}
+{% block content %}
+<div class="container-xl content-narrow"><nav class="breadcrumb-trail" aria-label="Breadcrumb"><a href="{% url 'core:home' %}">Home</a><span>/</span><a href="{% url 'orders:order_list' %}">My orders</a><span>/</span>{{ order.order_number }}</nav><p class="eyebrow">Placed {{ order.created_at|date:"d M Y" }}</p><h1>Order <span class="order-number">{{ order.order_number }}</span></h1><p class="text-muted">{{ order.get_payment_method_display }} · {{ order.overall_status|title }}</p><a class="btn btn-outline-brand mb-4" href="{% url 'orders:invoice' order.pk|stringformat:'06d' %}"><i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i> Download invoice</a>
+  {% include "partials/_stepper.html" with current=3 step_one="Cart" step_two="Delivery" step_three="Order" %}
+  {% for item in order.items.all %}<article class="surface-card order-item-card"><div class="order-item-head"><h2 class="card-heading"><a href="{{ item.product.get_absolute_url }}">{{ item.product.title }}</a></h2>{% include "partials/_status_badge.html" with status=item.status label=item.get_status_display %}</div><p class="numeric">{{ item.quantity }} × ₹{{ item.unit_price|floatformat:2|intcomma }} = <strong>₹{{ item.line_total|floatformat:2|intcomma }}</strong></p>{% include "partials/_order_timeline.html" with item=item %}{% if item.status == "placed" %}<form class="mt-3" method="post" action="{% url 'orders:cancel_item' item.pk %}">{% csrf_token %}<button class="btn btn-outline-brand" type="submit">Cancel this item</button></form>{% endif %}</article>{% endfor %}
+  <div class="surface-card cart-total"><strong>Amount due</strong><strong>₹{{ order.total|floatformat:2|intcomma }}</strong></div><div class="surface-card mt-3"><h2 class="card-heading">Delivery address</h2><p>{{ order.full_name }} · {{ order.phone }}<br>{{ order.address }}<br>{{ order.city }}, {{ order.state }} {{ order.pincode }}</p></div>
+</div>
+{% endblock %}
