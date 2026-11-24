@@ -115,32 +115,3 @@ Virasat can be installed from Chrome on localhost or an HTTPS deployment. The ma
 ## Tests (Phase 10)
 
 Run `python manage.py test -v 2` from the activated virtual environment. The suite uses its own temporary database and does not change the demo data. The passing full output and coverage summary are in [`docs/test_report.md`](docs/test_report.md).
-
-## Folder structure and project report
-
-```text
-virasat_project/
-├── manage.py, requirements.txt, README.md
-├── virasat/                 # settings, root URLs, WSGI and ASGI
-├── accounts/                # registration, profiles and verification
-├── catalog/                 # crafts, products, art generator, AI drafts and seed_demo
-├── orders/                  # session cart, checkout and fulfilment
-├── linkage/                 # requests, offers and ORM matching
-├── core/                    # home, impact and error handlers
-├── templates/               # pages and reusable partials
-├── static/css/, static/img/ # responsive styles and original SVGs
-├── media/, logs/            # local images and logs; ignored by Git
-└── docs/                    # viva, SRS, model, URL, test and deployment notes
-```
-
-For the project report and viva, see [`docs/syllabus_mapping.md`](docs/syllabus_mapping.md), [`docs/model_summary.md`](docs/model_summary.md), [`docs/url_map.md`](docs/url_map.md), [`docs/feature_list.md`](docs/feature_list.md), [`docs/data_flows.md`](docs/data_flows.md), [`docs/imagery.md`](docs/imagery.md), [`docs/viva_cheatsheet.md`](docs/viva_cheatsheet.md) and [`docs/deployment.md`](docs/deployment.md). [`docs/shell_demo.md`](docs/shell_demo.md) has real ORM outputs. The optional AI feature falls back automatically; no API key is needed for a complete local demo.
-
-## Redesigned interface and report assets
-
-The public and signed-in interfaces use the Selvedge design system: forest ink and sage fields on linen, Manrope typography, a circular maker seal, a sticky pill header and editorial commerce layouts. [`DESIGN.md`](DESIGN.md) records the visual system, [`PRODUCT.md`](PRODUCT.md) records the product truth, and [`docs/skill_review.md`](docs/skill_review.md) records the final design review. The final verification suite contains 93 passing tests. Browser evidence and phase notes are in `docs/ui_review/` and `docs/phase15.md` through `docs/phase18.md`. The Phase 17 review covers four viewport sizes and all three roles.
-
-Report diagrams and real screen captures are in [`docs/report_assets/`](docs/report_assets/README.md). Rebuild the code-derived diagrams with `python scripts/build_report_assets.py`, recapture screens with `NODE_PATH=/tmp/opencode/pw/node_modules node scripts/report_screenshots.cjs` against the server on port 8003 after the interface is frozen, then run `python scripts/validate_report_assets.py`. Refresh test evidence with `python scripts/test_report.py`; run the punctuation guard with `python scripts/check_dashes.py`.
-
-Browser and document tools are development-only. Install Playwright Core and axe separately with `npm install --prefix /tmp/opencode/pw --no-save playwright-core @axe-core/playwright`; use `requirements-dev.txt` for optional document tooling. The application `requirements.txt` is unchanged.
-
-The final SRS Word document and PDF are not generated yet. Student and assessment details are confirmed. Phase 19 is blocked on the repository and deployment links and the supplied `docs/Project_Report_Format.docx`. The final report builder and its rebuild command will be added after those inputs are confirmed, rather than publishing a report with invented details.
