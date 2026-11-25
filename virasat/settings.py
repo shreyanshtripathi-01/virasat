@@ -20,6 +20,16 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+# Render exposes its generated hostname through this variable. Trusting it
+# here avoids a manual ALLOWED_HOSTS setting for the hosted demo.
+render_host = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if render_host and render_host not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(render_host)
+
+# Render terminates TLS at its edge proxy. Trust the forwarded protocol so
+# Django sees the original HTTPS request for CSRF and secure cookies.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
