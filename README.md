@@ -1,6 +1,6 @@
 # Virasat
 
-**Heritage in every handmade piece.** Virasat is a mobile-first, responsive Django marketplace for Indian artisans. It is a website, not a native mobile app. Python 3.12, Django 5.2, SQLite and Pillow are the core stack; `requests` is used only by the isolated optional AI service. All application views are function-based, and ordinary HTML forms work without custom JavaScript.
+Virasat is a mobile-first, responsive Django marketplace for Indian artisans. It is a website, not a native mobile app. Python 3.12, Django 5.2, SQLite and Pillow are the core stack; `requests` is used only by the isolated optional AI service. All application views are function-based, and ordinary HTML forms work without custom JavaScript.
 
 ## Features at a glance
 
