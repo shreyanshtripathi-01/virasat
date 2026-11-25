@@ -108,7 +108,7 @@ def manifest(request):
     data = {
         "name": "Virasat",
         "short_name": "Virasat",
-        "description": "Heritage in every handmade piece",
+        "description": "Virasat, a Django marketplace for Indian handmade craft",
         "start_url": "/?source=pwa",
         "scope": "/",
         "display": "standalone",
